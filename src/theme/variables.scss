@@ -1,0 +1,190 @@
+// For information on how to create your own theme, please refer to:
+// https://ionicframework.com/docs/theming/
+
+/*
+ * Palette Stockaido — fraîche et naturelle (verts), accents chaleureux,
+ * fond sombre façon "GitHub dark" pour un bon contraste.
+ */
+
+// Couleurs partagées entre clair et sombre (identiques dans les deux thèmes)
+:root {
+  --ion-color-primary: #2ecc71;
+  --ion-color-primary-800: #27ae60;
+  --ion-color-primary-700: #2ecc71;
+  --ion-color-primary-600: #58d68d;
+  --ion-color-primary-500: #7ed6a3;
+  --ion-color-primary-400: #a3e4d7;
+  --ion-color-primary-300: #d1f2eb;
+  --ion-color-primary-rgb: 46, 204, 113;
+  --ion-color-primary-contrast: #0d1117;
+  --ion-color-primary-contrast-rgb: 13, 17, 23;
+  --ion-color-primary-shade: #27ae60;
+  --ion-color-primary-tint: #58d68d;
+
+  // Couleur à utiliser pour du TEXTE vert : le vert de charte ne fait que 2:1 sur fond clair (WCAG AA exige 4,5:1)
+  --app-primary-readable: var(--ion-color-primary);
+
+  --ion-color-secondary: #60a5fa;
+  --ion-color-secondary-rgb: 96, 165, 250;
+  --ion-color-secondary-contrast: #0d1117;
+  --ion-color-secondary-contrast-rgb: 13, 17, 23;
+  --ion-color-secondary-shade: #4a8fe0;
+  --ion-color-secondary-tint: #7fb8fb;
+
+  --ion-color-tertiary: #ff8e53;
+  --ion-color-tertiary-rgb: 255, 142, 83;
+  --ion-color-tertiary-contrast: #0d1117;
+  --ion-color-tertiary-contrast-rgb: 13, 17, 23;
+  --ion-color-tertiary-shade: #e67a45;
+  --ion-color-tertiary-tint: #ffa576;
+
+  --ion-color-success: #27ae60;
+  --ion-color-success-rgb: 39, 174, 96;
+  --ion-color-success-contrast: #0d1117;
+  --ion-color-success-contrast-rgb: 13, 17, 23;
+  --ion-color-success-shade: #1f8a4c;
+  --ion-color-success-tint: #58d68d;
+
+  --ion-color-warning: #ffc107;
+  --ion-color-warning-rgb: 255, 193, 7;
+  --ion-color-warning-contrast: #0d1117;
+  --ion-color-warning-contrast-rgb: 13, 17, 23;
+  --ion-color-warning-shade: #e0a800;
+  --ion-color-warning-tint: #ffd54f;
+
+  --ion-color-danger: #ff6b6b;
+  --ion-color-danger-rgb: 255, 107, 107;
+  --ion-color-danger-contrast: #0d1117;
+  --ion-color-danger-contrast-rgb: 13, 17, 23;
+  --ion-color-danger-shade: #e05252;
+  --ion-color-danger-tint: #ff8f8f;
+}
+
+// Mode clair
+@media (prefers-color-scheme: light) {
+  :root {
+    --ion-background-color: #ffffff;
+    --ion-background-color-rgb: 255, 255, 255;
+    --ion-text-color: #1f2328;
+    --ion-text-color-rgb: 31, 35, 40;
+
+    --app-primary-readable: #14663a;
+
+    // Sur fond blanc, les teintes sombres de la palette ne dépassent pas 2,8:1 en texte : on les assombrit
+    --ion-color-warning: #8a6d00;
+    --ion-color-warning-rgb: 138, 109, 0;
+    --ion-color-warning-contrast: #ffffff;
+    --ion-color-warning-contrast-rgb: 255, 255, 255;
+    --ion-color-warning-shade: #6f5700;
+    --ion-color-warning-tint: #a5851a;
+
+    --ion-color-danger: #c0392b;
+    --ion-color-danger-rgb: 192, 57, 43;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #a52f23;
+    --ion-color-danger-tint: #cd5546;
+
+    --ion-color-dark: #1f2328;
+    --ion-color-dark-rgb: 31, 35, 40;
+    --ion-color-dark-contrast: #ffffff;
+    --ion-color-dark-contrast-rgb: 255, 255, 255;
+    --ion-color-dark-shade: #16191d;
+    --ion-color-dark-tint: #3a3e42;
+
+    --ion-color-medium: #656d76;
+    --ion-color-medium-rgb: 101, 109, 118;
+    --ion-color-medium-contrast: #ffffff;
+    --ion-color-medium-contrast-rgb: 255, 255, 255;
+    --ion-color-medium-shade: #585f68;
+    --ion-color-medium-tint: #767d85;
+
+    --ion-color-light: #f6f8fa;
+    --ion-color-light-rgb: 246, 248, 250;
+    --ion-color-light-contrast: #1f2328;
+    --ion-color-light-contrast-rgb: 31, 35, 40;
+    --ion-color-light-shade: #d8dade;
+    --ion-color-light-tint: #f7f9fb;
+
+    --ion-item-background: #ffffff;
+    --ion-toolbar-background: #f6f8fa;
+    --ion-border-color: #d0d7de;
+
+    --ion-color-step-50: #f6f8fa;
+    --ion-color-step-100: #eaeef2;
+    --ion-color-step-150: #dde3e8;
+    --ion-color-step-200: #d0d7de;
+    --ion-color-step-250: #c4cbd3;
+    --ion-color-step-300: #b7bfc8;
+    --ion-color-step-350: #aab3bd;
+    --ion-color-step-400: #9ea7b2;
+    --ion-color-step-450: #919ba7;
+    --ion-color-step-500: #656d76;
+    --ion-color-step-550: #5c636b;
+    --ion-color-step-600: #545a61;
+    --ion-color-step-650: #4b5157;
+    --ion-color-step-700: #43474d;
+    --ion-color-step-750: #3a3e42;
+    --ion-color-step-800: #313438;
+    --ion-color-step-850: #282a2e;
+    --ion-color-step-900: #1f2124;
+    --ion-color-step-950: #17181a;
+  }
+}
+
+// Mode sombre — fond façon "GitHub dark", palette Stockaido
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-background-color: #0d1117;
+    --ion-background-color-rgb: 13, 17, 23;
+    --ion-text-color: #e6edf3;
+    --ion-text-color-rgb: 230, 237, 243;
+
+    --ion-color-dark: #e6edf3;
+    --ion-color-dark-rgb: 230, 237, 243;
+    --ion-color-dark-contrast: #0d1117;
+    --ion-color-dark-contrast-rgb: 13, 17, 23;
+    --ion-color-dark-shade: #c8d1db;
+    --ion-color-dark-tint: #f0f4f8;
+
+    --ion-color-medium: #8b949e;
+    --ion-color-medium-rgb: 139, 148, 158;
+    --ion-color-medium-contrast: #0d1117;
+    --ion-color-medium-contrast-rgb: 13, 17, 23;
+    --ion-color-medium-shade: #6e7681;
+    --ion-color-medium-tint: #a9b1bc;
+
+    --ion-color-light: #21262d;
+    --ion-color-light-rgb: 33, 38, 45;
+    --ion-color-light-contrast: #e6edf3;
+    --ion-color-light-contrast-rgb: 230, 237, 243;
+    --ion-color-light-shade: #161b22;
+    --ion-color-light-tint: #333940;
+
+    --ion-item-background: #161b22;
+    --ion-toolbar-background: #161b22;
+    --ion-card-background: #161b22;
+    --ion-border-color: #21262d;
+
+    --ion-color-step-50: #161b22;
+    --ion-color-step-100: #21262d;
+    --ion-color-step-150: #292e36;
+    --ion-color-step-200: #333940;
+    --ion-color-step-250: #3d444d;
+    --ion-color-step-300: #464c55;
+    --ion-color-step-350: #50565f;
+    --ion-color-step-400: #5a6169;
+    --ion-color-step-450: #646b73;
+    --ion-color-step-500: #8b949e;
+    --ion-color-step-550: #99a1aa;
+    --ion-color-step-600: #a6aeb6;
+    --ion-color-step-650: #b3bac1;
+    --ion-color-step-700: #c0c6cc;
+    --ion-color-step-750: #cdd2d7;
+    --ion-color-step-800: #dadee2;
+    --ion-color-step-850: #e6edf3;
+    --ion-color-step-900: #f0f3f5;
+    --ion-color-step-950: #f8fafb;
+  }
+}
+

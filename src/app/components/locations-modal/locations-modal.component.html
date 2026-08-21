@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'locationsModal.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ 'locationsModal.count' | translate: { count: allLocations.length } }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-note *ngIf="locationError" color="danger" class="error-note">{{ locationError }}</ion-note>
+
+      <ion-searchbar
+        *ngIf="allLocations.length > 5"
+        [(ngModel)]="locationFilter"
+        [placeholder]="'locationsModal.filterPlaceholder' | translate"
+        class="options-search"
+      ></ion-searchbar>
+
+      <div class="options-list-scroll">
+        <ion-list class="options-list">
+          <ion-item *ngFor="let loc of filteredLocations" lines="full">
+            <ion-label>{{ loc.name | translate }}</ion-label>
+            <ion-badge *ngIf="!loc.deletable" slot="end" color="medium" class="default-badge">{{ 'common.default' | translate }}</ion-badge>
+            <ion-button fill="clear" color="medium" slot="end" [disabled]="isFirst(loc.id)" (click)="moveUp(loc.id)">
+              <ion-icon slot="icon-only" name="chevron-up-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="medium" slot="end" [disabled]="isLast(loc.id)" (click)="moveDown(loc.id)">
+              <ion-icon slot="icon-only" name="chevron-down-outline"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="loc.deletable" fill="clear" color="danger" slot="end" (click)="deleteLocation(loc.id, loc.name)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-item *ngIf="filteredLocations.length === 0" lines="none">
+            <ion-label color="medium">{{ 'common.noResults' | translate }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <form (ngSubmit)="addLocation()" class="add-form">
+        <ion-item class="field-item">
+          <ion-label position="floating">{{ 'locationsModal.newLocation' | translate }}</ion-label>
+          <ion-input [(ngModel)]="newLocationName" name="newLocationName" type="text"></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" [disabled]="locationLoading || !newLocationName.trim()">
+          <ion-spinner name="crescent" *ngIf="locationLoading"></ion-spinner>
+          <span *ngIf="!locationLoading">{{ 'locationsModal.addButton' | translate }}</span>
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

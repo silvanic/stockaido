@@ -1,0 +1,170 @@
+ion-title {
+  display: flex;
+  align-items: center;
+
+  .app-icon {
+    margin-right: 8px;
+    color: var(--ion-color-primary);
+    font-size: 22px;
+  }
+}
+
+ion-searchbar {
+  --background: var(--ion-color-step-50);
+  --border-radius: 12px;
+  --box-shadow: none;
+  --icon-color: var(--ion-color-medium);
+  padding: 0 8px 8px;
+}
+
+.location-section {
+  margin-bottom: 20px;
+  padding: 0 12px;
+}
+
+.section-divider {
+  --color: var(--app-primary-readable);
+  --padding-start: 12px;
+  --border-width: 0;
+  // Teinte posée sur un fond opaque : sans la couche opaque, les aliments défilent en transparence sous le titre collant
+  background:
+    linear-gradient(rgba(var(--ion-color-primary-rgb), 0.22), rgba(var(--ion-color-primary-rgb), 0.22)),
+    var(--ion-background-color, #fff);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  min-height: 38px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.food-item {
+  --background: transparent;
+  --padding-start: 0;
+
+  .food-avatar {
+    font-size: 28px;
+    margin-right: 4px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  .food-content {
+    flex: 1;
+    padding: 8px 0;
+    cursor: pointer;
+
+    .favorite-icon {
+      margin-left: 6px;
+      font-size: 16px;
+      vertical-align: middle;
+      color: var(--ion-color-medium);
+
+      &.is-favorite {
+        color: var(--ion-color-warning);
+      }
+    }
+
+    .low-stock-badge {
+      margin-left: 6px;
+      font-size: 10px;
+      vertical-align: middle;
+      border-radius: 10px;
+    }
+  }
+
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 4px;
+
+    .quantity-display {
+      min-width: 24px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .quantity-button {
+      --padding-start: 0;
+      --padding-end: 0;
+      --border-radius: 50%;
+      --background: var(--ion-color-primary);
+      --color: var(--ion-color-primary-contrast);
+      --box-shadow: none;
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+}
+
+.add-footer {
+  background: var(--ion-background-color, #fff);
+
+  &::before {
+    display: none; // masque le liseré iOS au-dessus du footer
+  }
+}
+
+.add-button-bar {
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+
+  .add-button {
+    --border-radius: 28px;
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+    --box-shadow: none;
+    height: 52px;
+    font-weight: 600;
+
+    ion-icon {
+      font-size: 22px;
+    }
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: var(--ion-color-medium);
+  text-align: center;
+
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  h2 {
+    margin: 16px 0 8px 0;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+

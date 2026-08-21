@@ -1,0 +1,256 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ (isEditMode ? 'foodModal.titleEdit' : 'foodModal.titleAdd') | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <!-- Error message -->
+    <ion-card-content *ngIf="error" color="danger" class="error-message">
+      <ion-icon name="alert-circle"></ion-icon>
+      {{ error }}
+    </ion-card-content>
+
+    <ion-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <!-- Name field (required) -->
+        <div class="name-autocomplete">
+          <ion-item class="field-item">
+            <ion-label position="floating">{{ 'foodModal.name' | translate }} *</ion-label>
+            <ion-input 
+              [(ngModel)]="name"
+              (ngModelChange)="onNameInput()"
+              (ionFocus)="onNameInput()"
+              (ionBlur)="hideSuggestionsDelayed()"
+              name="name"
+              type="text"
+              autocomplete="off"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-list *ngIf="showSuggestions" class="suggestions-list" lines="none" (mousedown)="$event.preventDefault()">
+            <ion-item button *ngFor="let s of nameSuggestions" (click)="selectSuggestion(s)">
+              <ion-label>{{ s.name }}</ion-label>
+              <ion-note slot="end" *ngIf="s.fromCatalog">{{ 'foodModal.fromCatalog' | translate }}</ion-note>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <!-- Quantity & Unit row -->
+        <div class="quantity-unit-row">
+          <!-- Quantity field -->
+          <ion-item class="quantity-item field-item">
+            <ion-label position="floating">{{ 'foodModal.quantity' | translate }} *</ion-label>
+            <ion-input 
+              [(ngModel)]="quantity"
+              name="quantity"
+              type="number"
+              min="1"
+              required
+            ></ion-input>
+          </ion-item>
+
+          <!-- Unit dropdown -->
+          <ion-item class="unit-item field-item">
+            <ion-label position="floating">{{ 'foodModal.unit' | translate }}</ion-label>
+            <ion-select 
+              [(ngModel)]="unit"
+              name="unit"
+            >
+              <ion-select-option [value]="Unit.PIECE">
+                {{ UNIT_LABELS[Unit.PIECE] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.GRAM">
+                {{ UNIT_LABELS[Unit.GRAM] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.KILOGRAM">
+                {{ UNIT_LABELS[Unit.KILOGRAM] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.MILLILITER">
+                {{ UNIT_LABELS[Unit.MILLILITER] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.LITER">
+                {{ UNIT_LABELS[Unit.LITER] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.DECILITER">
+                {{ UNIT_LABELS[Unit.DECILITER] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.TABLESPOON">
+                {{ UNIT_LABELS[Unit.TABLESPOON] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.TEASPOON">
+                {{ UNIT_LABELS[Unit.TEASPOON] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.CUP">
+                {{ UNIT_LABELS[Unit.CUP] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.BOTTLE">
+                {{ UNIT_LABELS[Unit.BOTTLE] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.PACKAGE">
+                {{ UNIT_LABELS[Unit.PACKAGE] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.BOX">
+                {{ UNIT_LABELS[Unit.BOX] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.JAR">
+                {{ UNIT_LABELS[Unit.JAR] | translate }}
+              </ion-select-option>
+              <ion-select-option [value]="Unit.CARTON">
+                {{ UNIT_LABELS[Unit.CARTON] | translate }}
+              </ion-select-option>
+              <ion-select-option *ngFor="let u of customUnits" [value]="u.id">
+                {{ u.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <!-- Low stock indicator (edit mode only) -->
+        <ion-note *ngIf="isEditMode && isLowStock" color="danger" class="low-stock-hint">
+          <ion-icon name="alert-circle"></ion-icon>
+          {{ 'foodModal.lowStockHint' | translate }}
+        </ion-note>
+
+        <!-- Storage location -->
+        <ion-item class="field-item">
+          <ion-label>{{ 'foodModal.location' | translate }}</ion-label>
+          <ion-select [(ngModel)]="location" name="location">
+            <ion-select-option [value]="StorageLocation.FRIDGE">
+              {{ STORAGE_LOCATION_LABELS[StorageLocation.FRIDGE] | translate }}
+            </ion-select-option>
+            <ion-select-option [value]="StorageLocation.FREEZER">
+              {{ STORAGE_LOCATION_LABELS[StorageLocation.FREEZER] | translate }}
+            </ion-select-option>
+            <ion-select-option [value]="StorageLocation.PANTRY">
+              {{ STORAGE_LOCATION_LABELS[StorageLocation.PANTRY] | translate }}
+            </ion-select-option>
+            <ion-select-option [value]="StorageLocation.OTHER">
+              {{ STORAGE_LOCATION_LABELS[StorageLocation.OTHER] | translate }}
+            </ion-select-option>
+            <ion-select-option *ngFor="let loc of customLocations" [value]="loc.id">
+              {{ loc.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-note *ngIf="isLocationDuplicate" color="danger" class="duplicate-location-hint">
+          <ion-icon name="alert-circle"></ion-icon>
+          {{ 'foodModal.duplicateLocation' | translate }}
+        </ion-note>
+        <ion-button 
+          fill="outline" 
+          size="small"
+          type="button"
+          class="new-location-button"
+          (click)="openCreateLocationModal()"
+        >
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          {{ 'foodModal.newLocation' | translate }}
+        </ion-button>
+
+        <!-- Options avancées (regroupées pour alléger le formulaire) -->
+        <ion-accordion-group class="advanced-options">
+          <ion-accordion value="advanced">
+            <ion-item slot="header" class="field-item">
+              <ion-label>{{ 'foodModal.advancedOptions' | translate }}</ion-label>
+            </ion-item>
+            <div slot="content" class="advanced-options-content">
+              <!-- Image personnalisée -->
+              <div class="image-picker">
+                <ion-label>{{ 'foodModal.customImage' | translate }}</ion-label>
+                <div class="image-picker-row">
+                  <div class="image-preview">
+                    <img *ngIf="imageUrl" [src]="imageUrl" alt="" />
+                    <ion-icon *ngIf="!imageUrl" name="image-outline"></ion-icon>
+                  </div>
+                  <div class="image-picker-actions">
+                    <ion-button fill="outline" size="small" type="button" (click)="imageInput.click()">
+                      <ion-icon name="camera-outline" slot="start"></ion-icon>
+                      {{ (imageUrl ? 'foodModal.changeImage' : 'foodModal.chooseImage') | translate }}
+                    </ion-button>
+                    <ion-button *ngIf="imageUrl" fill="clear" size="small" color="danger" type="button" (click)="removeImage()">
+                      {{ 'foodModal.removeImage' | translate }}
+                    </ion-button>
+                  </div>
+                  <input #imageInput type="file" accept="image/*" hidden (change)="onImageSelected($event)" />
+                </div>
+                <ion-note *ngIf="imageError" color="danger">{{ imageError }}</ion-note>
+              </div>
+
+              <!-- Minimal stock (optional, for V1) -->
+              <ion-item class="field-item">
+                <ion-label position="floating">{{ 'foodModal.minimalStock' | translate }}</ion-label>
+                <ion-input 
+                  [(ngModel)]="minimalStock"
+                  name="minimalStock"
+                  type="number"
+                  min="0"
+                ></ion-input>
+              </ion-item>
+
+              <!-- Step (pas d'incrémentation pour les boutons +/-) -->
+              <ion-item class="field-item">
+                <ion-label position="floating">{{ 'foodModal.step' | translate }}</ion-label>
+                <ion-input 
+                  [(ngModel)]="step"
+                  name="step"
+                  type="number"
+                  min="1"
+                ></ion-input>
+              </ion-item>
+
+              <!-- Favori -->
+              <ion-item class="field-item">
+                <ion-label>{{ 'foodModal.favorite' | translate }}</ion-label>
+                <ion-toggle [(ngModel)]="isFavorite" name="isFavorite"></ion-toggle>
+              </ion-item>
+
+              <!-- Notes -->
+              <ion-item class="field-item">
+                <ion-label position="floating">{{ 'foodModal.notes' | translate }}</ion-label>
+                <ion-textarea 
+                  [(ngModel)]="notes"
+                  name="notes"
+                  rows="2"
+                ></ion-textarea>
+              </ion-item>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+
+        <!-- Submit button -->
+        <ion-button 
+          expand="block" 
+          type="submit"
+          [disabled]="loading || !name.trim() || isLocationDuplicate"
+          class="submit-button"
+        >
+          <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+          <span *ngIf="!loading">{{ (isEditMode ? 'foodModal.submitEdit' : 'foodModal.submitAdd') | translate }}</span>
+        </ion-button>
+
+        <!-- Delete button (edit mode only) -->
+        <ion-button 
+          *ngIf="isEditMode"
+          expand="block" 
+          fill="clear"
+          color="danger"
+          type="button"
+          [disabled]="loading"
+          class="delete-button"
+          (click)="onDelete()"
+        >
+          <ion-icon name="trash" slot="start"></ion-icon>
+          {{ 'foodModal.deleteFood' | translate }}
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

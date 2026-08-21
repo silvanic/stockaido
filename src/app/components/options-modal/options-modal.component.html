@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'optionsMenu.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button detail="true" (click)="openLocations()">
+      <ion-icon name="location-outline" slot="start"></ion-icon>
+      <ion-label>{{ 'optionsMenu.locations' | translate }}</ion-label>
+    </ion-item>
+    <ion-item button detail="true" (click)="openUnits()">
+      <ion-icon name="cube-outline" slot="start"></ion-icon>
+      <ion-label>{{ 'optionsMenu.units' | translate }}</ion-label>
+    </ion-item>
+    <ion-item button detail="true" (click)="openBackup()">
+      <ion-icon name="save-outline" slot="start"></ion-icon>
+      <ion-label>{{ 'optionsMenu.backup' | translate }}</ion-label>
+    </ion-item>
+    <ion-item button detail="true" (click)="openLanguageSelector()">
+      <ion-icon name="language-outline" slot="start"></ion-icon>
+      <ion-label>{{ 'optionsMenu.language' | translate }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

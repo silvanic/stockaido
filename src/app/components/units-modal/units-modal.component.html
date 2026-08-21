@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'unitsModal.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ 'unitsModal.count' | translate: { count: allUnits.length } }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-note *ngIf="unitError" color="danger" class="error-note">{{ unitError }}</ion-note>
+
+      <ion-searchbar
+        *ngIf="allUnits.length > 5"
+        [(ngModel)]="unitFilter"
+        [placeholder]="'unitsModal.filterPlaceholder' | translate"
+        class="options-search"
+      ></ion-searchbar>
+
+      <div class="options-list-scroll">
+        <ion-list class="options-list">
+          <ion-item *ngFor="let unit of filteredUnits" lines="full">
+            <ion-label>{{ unit.name | translate }}</ion-label>
+            <ion-badge *ngIf="!unit.deletable" slot="end" color="medium" class="default-badge">{{ 'common.default' | translate }}</ion-badge>
+            <ion-button *ngIf="unit.deletable" fill="clear" color="danger" slot="end" (click)="deleteUnit(unit.id, unit.name)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+          <ion-item *ngIf="filteredUnits.length === 0" lines="none">
+            <ion-label color="medium">{{ 'common.noResults' | translate }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <form (ngSubmit)="addUnit()" class="add-form">
+        <ion-item class="field-item">
+          <ion-label position="floating">{{ 'unitsModal.newUnit' | translate }}</ion-label>
+          <ion-input [(ngModel)]="newUnitName" name="newUnitName" type="text"></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" [disabled]="unitLoading || !newUnitName.trim()">
+          <ion-spinner name="crescent" *ngIf="unitLoading"></ion-spinner>
+          <span *ngIf="!unitLoading">{{ 'unitsModal.addButton' | translate }}</span>
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

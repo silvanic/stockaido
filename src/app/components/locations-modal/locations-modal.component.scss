@@ -1,0 +1,46 @@
+.error-note {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.options-search {
+  padding: 0 0 8px;
+}
+
+.options-list-scroll {
+  max-height: 50vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+
+.options-list {
+  margin-bottom: 0;
+
+  ion-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.default-badge {
+  font-weight: 400;
+}
+
+.add-form {
+  .field-item {
+    margin-bottom: 12px;
+    --background: rgba(128, 128, 128, 0.1);
+    --border-radius: 8px;
+    --border-color: rgba(128, 128, 128, 0.35);
+    --border-width: 1px;
+    --border-style: solid;
+  }
+
+  ion-spinner {
+    margin-right: 8px;
+  }
+}

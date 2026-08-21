@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'backupModal.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-note *ngIf="importExportError" color="danger" class="error-note">{{ importExportError }}</ion-note>
+      <ion-note class="empty-note">{{ 'backupModal.description' | translate }}</ion-note>
+
+      <ion-button expand="block" fill="outline" type="button" (click)="exportData()">
+        <ion-icon name="download-outline" slot="start"></ion-icon>
+        {{ 'backupModal.export' | translate }}
+      </ion-button>
+
+      <ion-button expand="block" fill="outline" color="warning" type="button" [disabled]="importLoading" (click)="importInput.click()">
+        <ion-spinner name="crescent" *ngIf="importLoading"></ion-spinner>
+        <ion-icon *ngIf="!importLoading" name="cloud-upload-outline" slot="start"></ion-icon>
+        {{ (importLoading ? 'backupModal.importing' : 'backupModal.import') | translate }}
+      </ion-button>
+      <input #importInput type="file" accept="application/json" hidden (change)="onImportFileSelected($event)" />
+
+      <ion-button expand="block" fill="outline" color="danger" type="button" [disabled]="clearLoading" (click)="clearAllData()">
+        <ion-spinner name="crescent" *ngIf="clearLoading"></ion-spinner>
+        <ion-icon *ngIf="!clearLoading" name="trash-outline" slot="start"></ion-icon>
+        {{ 'backupModal.clearAll' | translate }}
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

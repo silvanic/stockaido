@@ -1,0 +1,18 @@
+.error-note {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.empty-note {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ion-color-medium);
+}
+
+ion-card-content > ion-button {
+  margin-bottom: 8px;
+
+  ion-spinner {
+    margin-right: 8px;
+  }
+}
