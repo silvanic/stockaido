@@ -145,5 +145,9 @@
     "message": "Choisissez votre langue préférée",
     "fr": "Français",
     "en": "English"
+  },
+  "update": {
+    "available": "Une nouvelle version est disponible.",
+    "reload": "Recharger"
   }
 }

@@ -5,6 +5,7 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 ## 1. Gestion des aliments
 
 - **Ajout d'un aliment** via une popin (`AddFoodModalComponent`) : nom, quantité, unité, lieu de rangement, notes, stock minimal, favori, image.
+- **Autocomplétion du nom** : suggestions combinant les aliments déjà présents dans l'inventaire et un **catalogue de référence embarqué** de 263 aliments courants (FR/EN, `FoodCatalogService`), avec badge « Catalogue » pour distinguer l'origine. La sélection d'une suggestion du catalogue pré-remplit l'unité et le lieu de rangement typiques.
 - **Modification** d'un aliment existant (même popin, mode édition).
 - **Suppression** d'un aliment :
   - via swipe-to-delete sur la ligne (`ion-item-sliding`),
@@ -68,7 +69,10 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 - Formulaire d'ajout/édition organisé avec un bloc « Options avancées » repliable (stock minimal, pas d'incrémentation, favori, notes, image) pour ne pas surcharger le formulaire principal.
 - Messages de confirmation (toasts) après ajout, modification ou suppression.
 - État de chargement et gestion des erreurs affichés à l'utilisateur.
-- Application installable en PWA.
+- Application **installable en PWA** (manifeste + service worker Angular). Traductions et
+  catalogue sont préchargés, l'application démarre donc sans connexion après la première visite.
+- Quand une nouvelle version est déployée, un message propose de recharger l'application ;
+  l'utilisateur reste libre de continuer sur la version en cours.
 
 ## 9. Stack technique
 

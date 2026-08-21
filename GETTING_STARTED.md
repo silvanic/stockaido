@@ -22,52 +22,56 @@ L'application s'ouvrira automatiquement dans le navigateur à `http://localhost:
 ```
 src/
 ├── app/
-│   ├── models/              # Interfaces TypeScript
-│   │   └── food.model.ts    # Food, StorageLocation, etc.
-│   ├── repositories/        # Accès aux données
-│   │   └── food.repository.ts  # IndexedDB operations
-│   ├── services/            # Logique métier avec Signals
-│   │   └── food.service.ts  # État réactif + opérations
+│   ├── models/              # Interfaces TypeScript (food, food-catalog, unit...)
+│   ├── repositories/        # Accès IndexedDB (food, location, unit)
+│   ├── services/            # Logique métier avec Signals (food, location, unit,
+│   │                         # food-catalog, language, data-transfer)
+│   ├── shared/               # Utilitaires (ex: normalisation de texte pour la recherche)
 │   ├── pages/               # Pages principales
 │   │   └── home/            # Inventaire principal
-│   ├── components/          # Composants réutilisables
-│   │   └── add-food-modal/  # Modal d'ajout d'aliment
-│   └── app.module.ts        # Configuration Angular
+│   ├── components/          # Composants réutilisables (add-food-modal, options-modal,
+│   │                         # locations-modal, units-modal, backup-modal, create-location-modal)
+│   └── app.module.ts        # Configuration Angular (composants standalone importés dedans)
+└── assets/
+    ├── i18n/                # Traductions fr.json / en.json (@ngx-translate)
+    └── catalog/             # Catalogue statique d'aliments (autocomplétion)
 ```
+
+Voir [FEATURES.md](FEATURES.md) pour l'inventaire complet et à jour des fonctionnalités, et
+[TODO.md](TODO.md) / [ROADMAP.md](ROADMAP.md) pour l'avancement et les décisions d'architecture.
 
 ---
 
-## Fonctionnalités V0 (Actuellement Implémentées)
-
-### ✅ Fonctionnalités Principales
+## Fonctionnalités Principales (résumé — détail dans FEATURES.md)
 
 1. **Créer un aliment**
-   - Cliquez sur le bouton `+` en bas à droite
-   - Remplissez le nom, la quantité et le lieu de rangement
-   - Les autres champs sont optionnels
+   - Bouton « Ajouter un aliment » en pied de page
+   - Nom (avec autocomplétion : inventaire + catalogue de référence), quantité et unité requis
+   - Options avancées repliables : stock minimal, pas d'incrémentation, favori, notes, image
 
 2. **Modifier la quantité**
-   - Utilisez les boutons `−` et `+` directement dans la liste
-   - Les changements sont sauvegardés automatiquement
+   - Boutons `−` et `+` directement dans la liste, sauvegarde automatique
 
 3. **Supprimer un aliment**
-   - Glissez l'élément vers la gauche
-   - Cliquez sur "Supprimer" (bouton rouge)
+   - Glissement de l'élément (swipe) ou bouton « Supprimer » dans la popin d'édition
 
 4. **Rechercher un aliment**
-   - Tapez dans la barre de recherche en haut
-   - La liste filtre en temps réel
+   - Barre de recherche (nom ou lieu), filtrage en temps réel
 
-5. **Lieux de rangement**
-   - Frigo
-   - Congélateur
-   - Placard
-   - Autre
+5. **Lieux et unités**
+   - Valeurs par défaut + création de lieux/unités personnalisés (panneau Options)
 
-6. **Stockage local**
-   - Tous les données sont sauvegardées dans IndexedDB
-   - Fonctionne hors ligne
-   - Les données persistent même après fermeture de l'app
+6. **Liste « À acheter »**
+   - Générée automatiquement à partir du stock minimal de chaque aliment
+
+7. **Stockage local**
+   - Toutes les données (aliments, lieux, unités) sont dans IndexedDB, fonctionne hors ligne
+
+8. **Import / export**
+   - Sauvegarde et restauration de toutes les données via un fichier JSON
+
+9. **Internationalisation**
+   - Interface disponible en français et anglais, choix persistant
 
 ---
 
@@ -119,15 +123,20 @@ interface Food {
   id: string;              // ID unique généré automatiquement
   name: string;            // Nom de l'aliment (requis)
   quantity: number;        // Quantité (requis)
-  unit?: string;           // Unité (ex: "g", "ml", optionnel)
-  location?: StorageLocation;  // Lieu de rangement (optionnel)
-  minimalStock?: number;   // Stock minimal (V1, optionnel)
-  isFavorite?: boolean;    // Marqué comme favori (V1, optionnel)
+  unit?: string;           // Unité (Unit enum ou id d'unité personnalisée)
+  location?: string;       // Lieu de rangement (StorageLocation enum ou id de lieu personnalisé)
+  minimalStock?: number;   // Stock minimal (optionnel)
+  step?: number;           // Pas d'incrémentation des boutons +/- (optionnel)
+  isFavorite?: boolean;    // Marqué comme favori (optionnel)
   notes?: string;          // Notes supplémentaires (optionnel)
+  imageUrl?: string;       // Image personnalisée en data URL (optionnel)
   createdAt: Date;         // Date de création
   updatedAt: Date;         // Date de dernière modification
 }
 ```
+
+`unit` et `location` sont typés en `string` (pas seulement l'enum) pour accepter les identifiants
+de lieux/unités personnalisés créés par l'utilisateur.
 
 ### StorageLocation Enum
 ```typescript
@@ -151,14 +160,10 @@ enum StorageLocation {
 
 ---
 
-## Roadmap V1 (À Venir)
+## Roadmap
 
-- [ ] Système de favoris (★)
-- [ ] Stock minimal par aliment
-- [ ] Liste "À acheter" auto-générée
-- [ ] Dates de péremption (optionnel)
-- [ ] Icônes visuelles pour les catégories
-- [ ] Multi-utilisateur (cloud sync)
+Le suivi de version et les idées non planifiées sont dans [TODO.md](TODO.md) ; les décisions
+d'architecture (offline-first, catalogue collaboratif, i18n...) sont dans [ROADMAP.md](ROADMAP.md).
 
 ---
 
@@ -189,4 +194,5 @@ enum StorageLocation {
 
 ## Contact & Support
 
-Pour toute question ou suggestion, consultez le fichier `build.md` pour les détails complets des spécifications.
+Pour toute question ou suggestion, consultez [FEATURES.md](FEATURES.md), [ROADMAP.md](ROADMAP.md)
+et [TODO.md](TODO.md).

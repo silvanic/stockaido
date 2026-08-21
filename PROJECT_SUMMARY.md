@@ -1,5 +1,9 @@
 # 🚀 StockIonic - Application de Gestion de Stock Alimentaire
 
+> ⚠️ Ce document décrit l'état initial (V0) du projet et n'est plus tenu à jour au fil des
+> versions. Pour l'état **actuel**, voir [FEATURES.md](FEATURES.md) (fonctionnalités) et
+> [TODO.md](TODO.md) (avancement par version).
+
 ## ✅ Projet Créé avec Succès !
 
 L'application **StockIonic V0** est maintenant prête pour le développement et les tests.
@@ -75,7 +79,8 @@ npm run lint         # Vérifier le code
 ## 📚 Documentation
 
 - **[GETTING_STARTED.md](./GETTING_STARTED.md)** - Guide complet de démarrage
-- **[build.md](./build.md)** - Spécifications complètes du projet
+- **[FEATURES.md](./FEATURES.md)** - Inventaire à jour des fonctionnalités
+- **[ROADMAP.md](./ROADMAP.md)** / **[TODO.md](./TODO.md)** - Décisions d'architecture et suivi de version
 
 ---
 
@@ -110,12 +115,11 @@ src/app/
 - [x] Interface mobile-first
 - [x] Zéro dépendances externes pour l'état
 
-### 🔮 Roadmap V1 (À Venir)
-- [ ] Système de favoris (★)
-- [ ] Stock minimal par aliment
-- [ ] Liste "À acheter" auto-générée
-- [ ] Optionnels avancés (dates, photos, etc.)
-- [ ] Support multi-utilisateur (cloud)
+### 🔮 Depuis livrées (voir TODO.md pour le détail par version)
+- [x] Système de favoris (★)
+- [x] Stock minimal par aliment + liste « À acheter » auto-générée
+- [x] Image personnalisée, internationalisation FR/EN, catalogue d'autocomplétion
+- [ ] Support multi-utilisateur (cloud) — conditionnel, voir ROADMAP.md étape 2
 
 ---
 
@@ -176,7 +180,7 @@ src/app/
 
 Pour toute question, consultez:
 - [GETTING_STARTED.md](./GETTING_STARTED.md) - Guide complet
-- [build.md](./build.md) - Spécifications détaillées
+- [FEATURES.md](./FEATURES.md) - Fonctionnalités à jour
 - Console du navigateur (F12) pour les erreurs
 
 ---

@@ -28,19 +28,23 @@ sont cochées et qu'elle est déployée.
 
 ---
 
-## v2.1 — PWA et fiabilité 🎯 *prochaine*
+## v2.1 — PWA et fiabilité ✅ *prête à déployer*
 
 Objectif : tenir la promesse « offline d'abord » côté web.
 
-- [ ] `ng add @angular/pwa` — service worker, manifeste, icônes
-- [ ] Passer `assets/i18n/*.json` et `assets/catalog/*.json` en stratégie `prefetch` dans
+- [x] `ng add @angular/pwa` — service worker, manifeste, icônes
+- [x] Passer `assets/i18n/*.json` et `assets/catalog/*.json` en stratégie `prefetch` dans
       `ngsw-config.json` *(sans ça l'offline reste cassé malgré le service worker)*
-- [ ] Vérifier le démarrage réel hors ligne (onglet Network → Offline, puis rechargement)
-- [ ] Vérifier les en-têtes de cache Netlify sur `index.html` *(risque : utilisateurs bloqués
-      sur une version obsolète)*
-- [ ] Réparer `app.component.spec.ts` — échoue sur `NG0201: No provider found for TranslateStore`
-- [ ] Corriger l'affirmation « Application installable en PWA » dans FEATURES.md une fois vrai
-- [ ] Tester le parcours export → import de bout en bout
+- [x] Vérifier le démarrage réel hors ligne (onglet Network → Offline, puis rechargement)
+- [x] Vérifier les en-têtes de cache Netlify sur `index.html` *(risque : utilisateurs bloqués
+      sur une version obsolète)* — `netlify.toml` ajouté
+- [x] Réparer `app.component.spec.ts` — échoue sur `NG0201: No provider found for TranslateStore`
+- [x] Corriger l'affirmation « Application installable en PWA » dans FEATURES.md une fois vrai
+- [x] Tester le parcours export → import de bout en bout *(import validé dans le navigateur ;
+      export couvert par `data-transfer.service.spec.ts` — le téléchargement lui-même n'est pas
+      automatisable dans le navigateur intégré, à confirmer une fois dans un vrai navigateur)*
+- [x] Ajouter une invite de mise à jour (`SwUpdate.versionUpdates`) *(sinon la nouvelle version
+      n'apparaît qu'au second lancement)*
 
 ---
 
@@ -69,8 +73,8 @@ Objectif : tenir la promesse « offline d'abord » côté web.
 
 ## Dette technique
 
-- [ ] Couverture de tests quasi nulle : aucun test sur `FoodCatalogService`, l'import/export,
-      le calcul de la liste à acheter
+- [ ] Couverture de tests quasi nulle : aucun test sur `FoodCatalogService`, le calcul de la
+      liste à acheter *(l'import/export est désormais couvert)*
 - [ ] Budgets SCSS dépassés sur `home.page.scss` et `add-food-modal.component.scss`
       *(alertes de build récurrentes — relever le seuil ou découper les styles)*
 - [ ] Aucune validation sur un appareil physique, tout est vérifié en émulation navigateur

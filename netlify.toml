@@ -1,0 +1,59 @@
+# Netlify — en-têtes de cache et routage SPA.
+# Objectif : ne jamais servir un index.html ou un manifeste de service worker périmé,
+# tout en gardant un cache long sur les fichiers dont le nom contient un hash de build.
+
+[build]
+  command = "npm run build"
+  publish = "www"
+
+# Fichiers pivots : toujours revalidés auprès du serveur.
+# Sans ça, un utilisateur peut rester bloqué sur une version obsolète.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/ngsw.json"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/ngsw-worker.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Fichiers au nom hashé par le build : immuables.
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Les données applicatives ne sont pas hashées : le service worker les revalide via ngsw.json.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Routage SPA : toute URL inconnue retombe sur index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
