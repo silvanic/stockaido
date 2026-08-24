@@ -52,15 +52,21 @@ export class LocationsModalComponent {
   ) {}
 
   async addLocation(): Promise<void> {
-    if (!this.newLocationName.trim()) {
+    const trimmedName = this.newLocationName.trim();
+    if (!trimmedName) {
       this.locationError = this.translate.instant('locationsModal.nameRequired');
+      return;
+    }
+
+    if (this.isDuplicateName(trimmedName)) {
+      await this.showDuplicateAlert();
       return;
     }
 
     try {
       this.locationLoading = true;
       this.locationError = null;
-      await this.locationService.addLocation(this.newLocationName);
+      await this.locationService.addLocation(trimmedName);
       this.newLocationName = '';
     } catch (err) {
       this.locationError = this.translate.instant('locationsModal.createError');
@@ -68,6 +74,21 @@ export class LocationsModalComponent {
     } finally {
       this.locationLoading = false;
     }
+  }
+
+  // Compare insensible à la casse, y compris avec les lieux par défaut traduits
+  private isDuplicateName(name: string): boolean {
+    const normalized = name.toLowerCase();
+    return this.allLocations.some(loc => this.translate.instant(loc.name).toLowerCase() === normalized);
+  }
+
+  private async showDuplicateAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('common.error'),
+      message: this.translate.instant('locationsModal.duplicateName'),
+      buttons: [this.translate.instant('common.ok')]
+    });
+    await alert.present();
   }
 
   async deleteLocation(id: string, name: string): Promise<void> {

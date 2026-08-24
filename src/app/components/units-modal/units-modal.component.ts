@@ -52,15 +52,21 @@ export class UnitsModalComponent {
   ) {}
 
   async addUnit(): Promise<void> {
-    if (!this.newUnitName.trim()) {
+    const trimmedName = this.newUnitName.trim();
+    if (!trimmedName) {
       this.unitError = this.translate.instant('unitsModal.nameRequired');
+      return;
+    }
+
+    if (this.isDuplicateName(trimmedName)) {
+      await this.showDuplicateAlert();
       return;
     }
 
     try {
       this.unitLoading = true;
       this.unitError = null;
-      await this.unitService.addUnit(this.newUnitName);
+      await this.unitService.addUnit(trimmedName);
       this.newUnitName = '';
     } catch (err) {
       this.unitError = this.translate.instant('unitsModal.createError');
@@ -68,6 +74,21 @@ export class UnitsModalComponent {
     } finally {
       this.unitLoading = false;
     }
+  }
+
+  // Compare insensible à la casse, y compris avec les unités par défaut traduites
+  private isDuplicateName(name: string): boolean {
+    const normalized = name.toLowerCase();
+    return this.allUnits.some(unit => this.translate.instant(unit.name).toLowerCase() === normalized);
+  }
+
+  private async showDuplicateAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: this.translate.instant('common.error'),
+      message: this.translate.instant('unitsModal.duplicateName'),
+      buttons: [this.translate.instant('common.ok')]
+    });
+    await alert.present();
   }
 
   async deleteUnit(id: string, name: string): Promise<void> {

@@ -43,10 +43,11 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 ## 5. Panneau Options
 
 - Accessible via l'icône « Options » (à côté de l'icône « À acheter ») dans l'en-tête.
-- S'ouvre sur un **menu léger** (3 entrées : Lieux de rangement, Unités, Sauvegarde des données) ; chaque entrée ouvre sa propre popin dédiée, pour éviter une modal unique surchargée.
-- **Lieux de rangement** : liste complète (valeurs par défaut + personnalisées, badge « Par défaut » sur les entrées non supprimables), recherche/filtre par nom (dès que la liste dépasse 5 éléments), création et suppression de lieux personnalisés.
-- **Unités** : même fonctionnement que les lieux (liste complète, filtre, création/suppression des unités personnalisées).
+- S'ouvre sur un **menu léger** (4 entrées : Lieux de rangement, Unités, Sauvegarde des données, Nous contacter) ; chaque entrée ouvre sa propre popin dédiée, pour éviter une modal unique surchargée.
+- **Lieux de rangement** : liste complète (valeurs par défaut + personnalisées, badge « Par défaut » sur les entrées non supprimables), recherche/filtre par nom (dès que la liste dépasse 5 éléments), création et suppression de lieux personnalisés. Un **contrôle anti-doublon** empêche de créer un lieu portant le même nom (insensible à la casse) qu'un lieu existant, avec une alerte explicite.
+- **Unités** : même fonctionnement que les lieux (liste complète, filtre, création/suppression des unités personnalisées, contrôle anti-doublon identique).
 - **Sauvegarde des données** : export de tous les aliments, lieux et unités dans un fichier JSON téléchargeable ; import d'un fichier de sauvegarde (remplace l'intégralité des données locales après confirmation).
+- **Nous contacter** : formulaire de retour (message requis + e-mail facultatif) envoyé à une base **Netlify Database** (Postgres géré par Netlify) via une fonction serverless dédiée, pour recueillir bugs et suggestions des utilisateurs.
 - Listes à hauteur limitée (scroll interne indépendant, contenu au format mobile) pour rester utilisables même avec de nombreux éléments créés.
 - Une confirmation est demandée avant toute suppression ou tout import (opération destructive).
 

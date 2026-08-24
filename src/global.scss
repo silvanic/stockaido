@@ -46,6 +46,14 @@ ion-button[fill="outline"]:not([color]) {
   --border-color: var(--app-primary-readable);
 }
 
+// Anneau de focus clavier commun à tout élément interactif (natif ou role="button" + tabindex)
+// --ion-color-primary seul seulement 2:1 de contraste -> inutilisable comme indicateur visuel fiable
+:focus-visible {
+  outline: 3px solid var(--app-primary-readable);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 // Les boutons d'ion-alert héritent tous de --ion-color-primary, y compris les actions destructives
 .alert-button {
   color: var(--app-primary-readable) !important;

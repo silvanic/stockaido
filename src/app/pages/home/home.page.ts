@@ -90,7 +90,9 @@ export class HomePage {
     await modal.present();
   }
 
-  async openEditForm(food: Food): Promise<void> {
+  async openEditForm(food: Food, event?: Event): Promise<void> {
+    // La barre espace fait défiler la page par défaut sur un élément focusable non natif
+    event?.preventDefault();
     const modal = await this.modalController.create({
       component: AddFoodModalComponent,
       componentProps: { food },
@@ -141,6 +143,25 @@ export class HomePage {
   getUnitLabel(unit: string | undefined): string {
     if (!unit) return 'units.piece';
     return UNIT_LABELS[unit as Unit] ?? this.unitService.getUnitName(unit) ?? unit;
+  }
+
+  editFoodAriaLabel(food: Food): string {
+    return this.translate.instant('home.editFoodAria', { name: food.name });
+  }
+
+  toBuyAriaLabel(): string {
+    const count = this.toBuyList().length;
+    return this.translate.instant('home.toBuy');    return this.translate.instant('home.toBuyAria', { label: this.translate.instant('home.toBuy'), count });
+  }
+
+  incrementAriaLabel(food: Food): string {
+    const unit = this.translate.instant(this.getUnitLabel(food.unit));
+    return this.translate.instant('home.incrementAria', { name: food.name, step: food.step ?? 1, unit });
+  }
+
+  decrementAriaLabel(food: Food): string {
+    const unit = this.translate.instant(this.getUnitLabel(food.unit));
+    return this.translate.instant('home.decrementAria', { name: food.name, step: food.step ?? 1, unit });
   }
 
   getFoodsByLocation(location: string | undefined): Food[] {

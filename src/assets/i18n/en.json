@@ -2,6 +2,8 @@
   "common": {
     "close": "Close",
     "cancel": "Cancel",
+    "ok": "OK",
+    "error": "Error",
     "delete": "Delete",
     "add": "Add",
     "save": "Save",
@@ -22,7 +24,10 @@
     "lowStock": "Low stock",
     "foodDeleted": "Food deleted",
     "confirmDeleteFood": "Delete this food?",
-    "loadError": "Error while loading foods"
+    "loadError": "Error while loading foods",
+    "editFoodAria": "Edit {{name}}",
+    "incrementAria": "Increase {{name}} by {{step}} {{unit}}",
+    "decrementAria": "Decrease {{name}} by {{step}} {{unit}}"
   },
   "locations": {
     "fridge": "Fridge",
@@ -98,6 +103,7 @@
     "locations": "Storage locations",
     "units": "Units",
     "backup": "Data",
+    "contact": "Contact us",
     "language": "Language"
   },
   "locationsModal": {
@@ -107,6 +113,7 @@
     "newLocation": "New location",
     "addButton": "Add a location",
     "nameRequired": "The location name is required",
+    "duplicateName": "This location already exists",
     "createError": "Error while creating the location",
     "confirmDelete": "Delete location \"{{name}}\"?",
     "deleted": "Location deleted"
@@ -118,6 +125,7 @@
     "newUnit": "New unit",
     "addButton": "Add a unit",
     "nameRequired": "The unit name is required",
+    "duplicateName": "This unit already exists",
     "createError": "Error while creating the unit",
     "confirmDelete": "Delete unit \"{{name}}\"?",
     "deleted": "Unit deleted"
@@ -139,6 +147,16 @@
     "clearAction": "Clear",
     "clearSuccess": "Data cleared",
     "clearError": "Error while clearing data"
+  },
+  "contactModal": {
+    "title": "Contact us",
+    "description": "Found a bug, have a suggestion? Your message is sent directly to the team.",
+    "message": "Your message",
+    "email": "Your email (optional, so we can reply)",
+    "send": "Send",
+    "messageRequired": "The message is required",
+    "sent": "Message sent, thank you!",
+    "sendError": "Error while sending the message"
   },
   "language": {
     "title": "Language",

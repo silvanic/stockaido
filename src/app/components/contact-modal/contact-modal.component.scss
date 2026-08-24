@@ -1,0 +1,20 @@
+.error-note {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.empty-note {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--ion-color-medium);
+}
+
+.field-item {
+  margin-bottom: 12px;
+}
+
+ion-button[type='submit'] {
+  ion-spinner {
+    margin-right: 8px;
+  }
+}

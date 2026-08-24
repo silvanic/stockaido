@@ -5,6 +5,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LocationsModalComponent } from '../locations-modal/locations-modal.component';
 import { UnitsModalComponent } from '../units-modal/units-modal.component';
 import { BackupModalComponent } from '../backup-modal/backup-modal.component';
+import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 import { LanguageService, AppLanguage } from '../../services/language.service';
 
 @Component({
@@ -38,6 +39,11 @@ export class OptionsModalComponent {
 
   async openBackup(): Promise<void> {
     const modal = await this.modalController.create({ component: BackupModalComponent });
+    await modal.present();
+  }
+
+  async openContact(): Promise<void> {
+    const modal = await this.modalController.create({ component: ContactModalComponent });
     await modal.present();
   }
 

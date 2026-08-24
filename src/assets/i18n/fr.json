@@ -2,6 +2,8 @@
   "common": {
     "close": "Fermer",
     "cancel": "Annuler",
+    "ok": "OK",
+    "error": "Erreur",
     "delete": "Supprimer",
     "add": "Ajouter",
     "save": "Enregistrer",
@@ -22,7 +24,10 @@
     "lowStock": "Stock bas",
     "foodDeleted": "Aliment supprimé",
     "confirmDeleteFood": "Supprimer cet aliment ?",
-    "loadError": "Erreur au chargement des aliments"
+    "loadError": "Erreur au chargement des aliments",
+    "editFoodAria": "Modifier {{name}}",
+    "incrementAria": "Augmenter {{name}} de {{step}} {{unit}}",
+    "decrementAria": "Diminuer {{name}} de {{step}} {{unit}}"
   },
   "locations": {
     "fridge": "Frigo",
@@ -98,6 +103,7 @@
     "locations": "Lieux de rangement",
     "units": "Unités",
     "backup": "Données",
+    "contact": "Nous contacter",
     "language": "Langue"
   },
   "locationsModal": {
@@ -107,6 +113,7 @@
     "newLocation": "Nouveau lieu",
     "addButton": "Ajouter un lieu",
     "nameRequired": "Le nom du lieu est requis",
+    "duplicateName": "Ce lieu existe déjà",
     "createError": "Erreur lors de la création du lieu",
     "confirmDelete": "Supprimer le lieu \"{{name}}\" ?",
     "deleted": "Lieu supprimé"
@@ -118,6 +125,7 @@
     "newUnit": "Nouvelle unité",
     "addButton": "Ajouter une unité",
     "nameRequired": "Le nom de l'unité est requis",
+    "duplicateName": "Cette unité existe déjà",
     "createError": "Erreur lors de la création de l'unité",
     "confirmDelete": "Supprimer l'unité \"{{name}}\" ?",
     "deleted": "Unité supprimée"
@@ -139,6 +147,16 @@
     "clearAction": "Vider",
     "clearSuccess": "Données supprimées",
     "clearError": "Erreur lors de la suppression des données"
+  },
+  "contactModal": {
+    "title": "Nous contacter",
+    "description": "Une remarque, un bug, une idée d'amélioration ? Votre message est envoyé directement à l'équipe.",
+    "message": "Votre message",
+    "email": "Votre e-mail (facultatif, pour vous répondre)",
+    "send": "Envoyer",
+    "messageRequired": "Le message est requis",
+    "sent": "Message envoyé, merci !",
+    "sendError": "Erreur lors de l'envoi du message"
   },
   "language": {
     "title": "Langue",

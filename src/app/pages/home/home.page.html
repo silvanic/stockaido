@@ -5,11 +5,11 @@
       {{ 'home.title' | translate }}
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openToBuyModal()">
+      <ion-button [attr.aria-label]="toBuyAriaLabel()" (click)="openToBuyModal()">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
         <ion-badge *ngIf="toBuyList().length > 0" color="warning">{{ toBuyList().length }}</ion-badge>
       </ion-button>
-      <ion-button (click)="openOptionsModal()">
+      <ion-button [attr.aria-label]="'optionsMenu.title' | translate" (click)="openOptionsModal()">
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -51,7 +51,16 @@
             <img *ngIf="food.imageUrl" [src]="food.imageUrl" alt="" />
             <ion-icon *ngIf="!food.imageUrl" name="nutrition-outline"></ion-icon>
           </span>
-          <div class="food-content" (click)="openEditForm(food)">
+          <div
+            class="food-content"
+            tabindex="0"
+            role="button"
+            [attr.aria-label]="editFoodAriaLabel(food)"
+            [attr.aria-describedby]="'food-qty-' + food.id"
+            (click)="openEditForm(food)"
+            (keydown.enter)="openEditForm(food)"
+            (keydown.space)="openEditForm(food, $event)"
+          >
             <ion-label>
               <h2>
                 {{ food.name }}
@@ -63,13 +72,14 @@
                 ></ion-icon>
                 <ion-badge *ngIf="isLowStock(food)" color="danger" class="low-stock-badge">{{ 'home.lowStock' | translate }}</ion-badge>
               </h2>
-              <p>{{ food.quantity }} {{ getUnitLabel(food.unit) | translate }}</p>
+              <p [id]="'food-qty-' + food.id">{{ food.quantity }} {{ getUnitLabel(food.unit) | translate }}</p>
             </ion-label>
           </div>
           
           <div class="quantity-controls" slot="end">
             <ion-button 
               class="quantity-button"
+              [attr.aria-label]="decrementAriaLabel(food)"
               (click)="decrementQuantity(food.id)"
             >
               −
@@ -77,6 +87,7 @@
             <span class="quantity-display">{{ food.quantity }}</span>
             <ion-button 
               class="quantity-button"
+              [attr.aria-label]="incrementAriaLabel(food)"
               (click)="incrementQuantity(food.id)"
             >
               +
