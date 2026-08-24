@@ -59,7 +59,7 @@ export class LocationsModalComponent {
     }
 
     if (this.isDuplicateName(trimmedName)) {
-      await this.showDuplicateAlert();
+      await this.showToast(this.translate.instant('locationsModal.duplicateName'), 'warning');
       return;
     }
 
@@ -82,21 +82,12 @@ export class LocationsModalComponent {
     return this.allLocations.some(loc => this.translate.instant(loc.name).toLowerCase() === normalized);
   }
 
-  private async showDuplicateAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: this.translate.instant('common.error'),
-      message: this.translate.instant('locationsModal.duplicateName'),
-      buttons: [this.translate.instant('common.ok')]
-    });
-    await alert.present();
-  }
-
   async deleteLocation(id: string, name: string): Promise<void> {
     const confirmed = await this.confirmDelete(this.translate.instant('locationsModal.confirmDelete', { name }));
     if (!confirmed) return;
 
     await this.locationService.deleteLocation(id);
-    await this.showToast(this.translate.instant('locationsModal.deleted'));
+    await this.showToast(this.translate.instant('locationsModal.deleted'), 'success');
   }
 
   isFirst(id: string): boolean {
@@ -132,11 +123,11 @@ export class LocationsModalComponent {
     });
   }
 
-  private async showToast(message: string): Promise<void> {
+  private async showToast(message: string, color: 'success' | 'warning'): Promise<void> {
     const toast = await this.toastController.create({
       message,
       duration: 3000,
-      color: 'success',
+      color,
       position: 'bottom'
     });
     await toast.present();

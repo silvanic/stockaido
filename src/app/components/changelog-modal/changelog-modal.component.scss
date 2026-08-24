@@ -1,0 +1,26 @@
+.version-block {
+  padding: 0 16px;
+
+  & + .version-block {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--ion-border-color);
+  }
+}
+
+.version-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 12px 0 4px;
+}
+
+.version-number {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.version-date {
+  color: var(--ion-color-medium);
+  font-size: 0.85rem;
+}

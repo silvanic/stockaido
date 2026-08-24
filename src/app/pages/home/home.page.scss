@@ -17,6 +17,33 @@ ion-searchbar {
   padding: 0 8px 8px;
 }
 
+// Pastille superposée sur le coin de l'icône panier, positionnée en absolu pour un alignement fiable
+.icon-badge-wrapper {
+  position: relative;
+  display: inline-flex;
+
+  ion-icon {
+    font-size: 26px;
+  }
+}
+
+.to-buy-count {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  border-radius: 50%;
+  background: var(--ion-color-warning);
+  color: var(--ion-color-warning-contrast);
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+}
+
+
 .location-section {
   margin-bottom: 20px;
   padding: 0 12px;

@@ -27,7 +27,13 @@
     "loadError": "Error while loading foods",
     "editFoodAria": "Edit {{name}}",
     "incrementAria": "Increase {{name}} by {{step}} {{unit}}",
-    "decrementAria": "Decrease {{name}} by {{step}} {{unit}}"
+    "decrementAria": "Decrease {{name}} by {{step}} {{unit}}",
+    "themeToggleAria": "Switch theme (currently: {{mode}})",
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
   },
   "locations": {
     "fridge": "Fridge",
@@ -104,6 +110,7 @@
     "units": "Units",
     "backup": "Data",
     "contact": "Contact us",
+    "changelog": "What's new",
     "language": "Language"
   },
   "locationsModal": {
@@ -157,6 +164,41 @@
     "messageRequired": "The message is required",
     "sent": "Message sent, thank you!",
     "sendError": "Error while sending the message"
+  },
+  "changelogModal": {
+    "title": "What's new",
+    "versionLabel": "Version {{version}}",
+    "versions": [
+      {
+        "version": "1.2",
+        "date": "2026-08-24",
+        "items": [
+          "Quick toggle between light, dark and automatic theme",
+          "\"Contact us\" form for feedback and bug reports",
+          "\"What's new\" screen to track updates"
+        ]
+      },
+      {
+        "version": "1.1",
+        "date": "2026-08-21",
+        "items": [
+          "Now works offline",
+          "Alert when a new version is available",
+          "Improved color and text readability"
+        ]
+      },
+      {
+        "version": "1.0",
+        "date": "2026-08-20",
+        "items": [
+          "Custom storage locations and units",
+          "Favorites and minimum stock with a \"To buy\" list",
+          "Export and import your data",
+          "Food name suggestions",
+          "Available in French and English"
+        ]
+      }
+    ]
   },
   "language": {
     "title": "Language",

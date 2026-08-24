@@ -8,7 +8,7 @@ sont cochées et qu'elle est déployée.
 
 ---
 
-## v2.0.0 — Socle fonctionnel ✅ *déployée le 20/08/2026*
+## v1.0.0 — Socle fonctionnel ✅ *déployée le 20/08/2026*
 
 - [x] CRUD des aliments, quantités avec pas personnalisable
 - [x] Lieux de rangement par défaut + personnalisés
@@ -28,7 +28,7 @@ sont cochées et qu'elle est déployée.
 
 ---
 
-## v2.1 — PWA et fiabilité ✅ *prête à déployer*
+## v1.1 — PWA et fiabilité ✅ *prête à déployer*
 
 Objectif : tenir la promesse « offline d'abord » côté web.
 
@@ -48,7 +48,7 @@ Objectif : tenir la promesse « offline d'abord » côté web.
 
 ---
 
-## v2.2 — Retours des premiers utilisateurs 📋 *à remplir*
+## v1.2 — Retours des premiers utilisateurs 📋 *à remplir*
 
 À alimenter avec les remontées de la bêta.
 
@@ -56,7 +56,7 @@ Objectif : tenir la promesse « offline d'abord » côté web.
 
 ---
 
-## v3.0 — Catalogue collaboratif *(conditionnel)*
+## v2.0 — Catalogue collaboratif *(conditionnel)*
 
 À n'engager que si l'application a une base d'utilisateurs réelle. Conception détaillée dans
 [ROADMAP.md](ROADMAP.md#étape-2--catalogue-collaboratif-reporté).
@@ -88,4 +88,4 @@ Objectif : tenir la promesse « offline d'abord » côté web.
 - [ ] Codes-barres (le module `@capacitor/camera` est déjà installé)
 - [ ] Langues supplémentaires (ES, DE, IT) — dupliquer `fr.json` et `names.fr.json`
 - [ ] Historique des consommations
-- [ ] Partage d'un inventaire entre plusieurs appareils *(implique un backend, cf. v3.0)*
+- [ ] Partage d'un inventaire entre plusieurs appareils *(implique un backend, cf. v2.0)*

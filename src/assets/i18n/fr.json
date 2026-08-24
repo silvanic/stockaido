@@ -27,7 +27,13 @@
     "loadError": "Erreur au chargement des aliments",
     "editFoodAria": "Modifier {{name}}",
     "incrementAria": "Augmenter {{name}} de {{step}} {{unit}}",
-    "decrementAria": "Diminuer {{name}} de {{step}} {{unit}}"
+    "decrementAria": "Diminuer {{name}} de {{step}} {{unit}}",
+    "themeToggleAria": "Changer de thème (actuellement : {{mode}})",
+    "theme": {
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système"
+    }
   },
   "locations": {
     "fridge": "Frigo",
@@ -104,6 +110,7 @@
     "units": "Unités",
     "backup": "Données",
     "contact": "Nous contacter",
+    "changelog": "Nouveautés",
     "language": "Langue"
   },
   "locationsModal": {
@@ -157,6 +164,41 @@
     "messageRequired": "Le message est requis",
     "sent": "Message envoyé, merci !",
     "sendError": "Erreur lors de l'envoi du message"
+  },
+  "changelogModal": {
+    "title": "Nouveautés",
+    "versionLabel": "Version {{version}}",
+    "versions": [
+      {
+        "version": "1.2",
+        "date": "24/08/2026",
+        "items": [
+          "Bascule rapide entre thème clair, sombre et automatique",
+          "Formulaire \"Nous contacter\" pour vos remarques et bugs",
+          "Écran \"Nouveautés\" pour suivre les mises à jour"
+        ]
+      },
+      {
+        "version": "1.1",
+        "date": "21/08/2026",
+        "items": [
+          "Fonctionne maintenant hors connexion",
+          "Alerte quand une nouvelle version est disponible",
+          "Meilleure lisibilité des couleurs et des textes"
+        ]
+      },
+      {
+        "version": "1.0",
+        "date": "20/08/2026",
+        "items": [
+          "Lieux et unités personnalisables",
+          "Favoris et stock minimum avec liste \"À acheter\"",
+          "Export et import de vos données",
+          "Suggestions de noms d'aliments",
+          "Application disponible en français et en anglais"
+        ]
+      }
+    ]
   },
   "language": {
     "title": "Langue",

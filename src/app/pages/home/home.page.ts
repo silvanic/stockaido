@@ -11,6 +11,7 @@ import { Unit, UNIT_LABELS } from '../../models/unit.model';
 import { AddFoodModalComponent } from '../../components/add-food-modal/add-food-modal.component';
 import { OptionsModalComponent } from '../../components/options-modal/options-modal.component';
 import { ToBuyModalComponent } from '../../components/to-buy-modal/to-buy-modal.component';
+import { ThemeService, ThemeMode } from '../../services/theme.service';
 
 // En deçà de ce nombre d'aliments, la liste tient sur un écran et la recherche n'apporte rien
 const SEARCH_VISIBILITY_THRESHOLD = 6;
@@ -35,6 +36,14 @@ export class HomePage {
 
   showSearch = computed(() => this.foodService.foods$().length >= SEARCH_VISIBILITY_THRESHOLD);
 
+  themeMode = this.themeService.mode;
+
+  private static readonly THEME_ICONS: Record<ThemeMode, string> = {
+    light: 'sunny-outline',
+    dark: 'moon-outline',
+    system: 'contrast-outline'
+  };
+
   StorageLocation = StorageLocation;
   STORAGE_LOCATION_LABELS = STORAGE_LOCATION_LABELS;
   Unit = Unit;
@@ -47,8 +56,22 @@ export class HomePage {
     private modalController: ModalController,
     private toastController: ToastController,
     private alertController: AlertController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private themeService: ThemeService
   ) {}
+
+  themeIcon(): string {
+    return HomePage.THEME_ICONS[this.themeMode()];
+  }
+
+  themeToggleAriaLabel(): string {
+    const modeLabel = this.translate.instant(`home.theme.${this.themeMode()}`);
+    return this.translate.instant('home.themeToggleAria', { mode: modeLabel });
+  }
+
+  cycleTheme(): void {
+    this.themeService.cycle();
+  }
 
   onSearchChange(query: string): void {
     this.foodService.setSearchQuery(query);

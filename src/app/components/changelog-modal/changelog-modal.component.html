@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClose()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'changelogModal.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="version-block" *ngFor="let version of versions">
+    <div class="version-header">
+      <span class="version-number">{{ 'changelogModal.versionLabel' | translate: { version: version.version } }}</span>
+      <span class="version-date">{{ version.date }}</span>
+    </div>
+    <ion-list lines="none">
+      <ion-item *ngFor="let item of version.items">
+        <ion-icon name="checkmark-circle-outline" color="success" slot="start"></ion-icon>
+        <ion-label class="ion-text-wrap">{{ item }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

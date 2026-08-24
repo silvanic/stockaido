@@ -6,6 +6,7 @@ import { LocationsModalComponent } from '../locations-modal/locations-modal.comp
 import { UnitsModalComponent } from '../units-modal/units-modal.component';
 import { BackupModalComponent } from '../backup-modal/backup-modal.component';
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
+import { ChangelogModalComponent } from '../changelog-modal/changelog-modal.component';
 import { LanguageService, AppLanguage } from '../../services/language.service';
 
 @Component({
@@ -44,6 +45,11 @@ export class OptionsModalComponent {
 
   async openContact(): Promise<void> {
     const modal = await this.modalController.create({ component: ContactModalComponent });
+    await modal.present();
+  }
+
+  async openChangelog(): Promise<void> {
+    const modal = await this.modalController.create({ component: ChangelogModalComponent });
     await modal.present();
   }
 

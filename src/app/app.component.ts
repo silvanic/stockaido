@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LanguageService } from './services/language.service';
 import { FoodCatalogService } from './services/food-catalog.service';
 import { AppUpdateService } from './services/app-update.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +14,12 @@ export class AppComponent {
   constructor(
     private languageService: LanguageService,
     private foodCatalogService: FoodCatalogService,
-    private appUpdateService: AppUpdateService
+    private appUpdateService: AppUpdateService,
+    private themeService: ThemeService
   ) {
     this.languageService.init();
     this.foodCatalogService.init();
     this.appUpdateService.init();
+    this.themeService.init();
   }
 }

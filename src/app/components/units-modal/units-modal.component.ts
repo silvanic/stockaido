@@ -59,7 +59,7 @@ export class UnitsModalComponent {
     }
 
     if (this.isDuplicateName(trimmedName)) {
-      await this.showDuplicateAlert();
+      await this.showToast(this.translate.instant('unitsModal.duplicateName'), 'warning');
       return;
     }
 
@@ -82,21 +82,12 @@ export class UnitsModalComponent {
     return this.allUnits.some(unit => this.translate.instant(unit.name).toLowerCase() === normalized);
   }
 
-  private async showDuplicateAlert(): Promise<void> {
-    const alert = await this.alertController.create({
-      header: this.translate.instant('common.error'),
-      message: this.translate.instant('unitsModal.duplicateName'),
-      buttons: [this.translate.instant('common.ok')]
-    });
-    await alert.present();
-  }
-
   async deleteUnit(id: string, name: string): Promise<void> {
     const confirmed = await this.confirmDelete(this.translate.instant('unitsModal.confirmDelete', { name }));
     if (!confirmed) return;
 
     await this.unitService.deleteUnit(id);
-    await this.showToast(this.translate.instant('unitsModal.deleted'));
+    await this.showToast(this.translate.instant('unitsModal.deleted'), 'success');
   }
 
   onClose(): void {
@@ -116,11 +107,11 @@ export class UnitsModalComponent {
     });
   }
 
-  private async showToast(message: string): Promise<void> {
+  private async showToast(message: string, color: 'success' | 'warning'): Promise<void> {
     const toast = await this.toastController.create({
       message,
       duration: 3000,
-      color: 'success',
+      color,
       position: 'bottom'
     });
     await toast.present();

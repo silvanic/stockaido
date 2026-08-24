@@ -5,9 +5,14 @@
       {{ 'home.title' | translate }}
     </ion-title>
     <ion-buttons slot="end">
+      <ion-button [attr.aria-label]="themeToggleAriaLabel()" (click)="cycleTheme()">
+        <ion-icon slot="icon-only" [name]="themeIcon()"></ion-icon>
+      </ion-button>
       <ion-button [attr.aria-label]="toBuyAriaLabel()" (click)="openToBuyModal()">
-        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-        <ion-badge *ngIf="toBuyList().length > 0" color="warning">{{ toBuyList().length }}</ion-badge>
+        <span class="icon-badge-wrapper" slot="icon-only">
+          <ion-icon name="cart-outline"></ion-icon>
+          <span class="to-buy-count" *ngIf="toBuyList().length > 0">{{ toBuyList().length }}</span>
+        </span>
       </ion-button>
       <ion-button [attr.aria-label]="'optionsMenu.title' | translate" (click)="openOptionsModal()">
         <ion-icon slot="icon-only" name="menu"></ion-icon>
