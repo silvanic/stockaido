@@ -135,7 +135,7 @@ export class LocationsModalComponent {
   private async showToast(message: string): Promise<void> {
     const toast = await this.toastController.create({
       message,
-      duration: 1500,
+      duration: 3000,
       color: 'success',
       position: 'bottom'
     });

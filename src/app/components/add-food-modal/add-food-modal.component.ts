@@ -332,7 +332,7 @@ export class AddFoodModalComponent implements OnInit {
   private async showToast(message: string, color: 'success' | 'danger'): Promise<void> {
     const toast = await this.toastController.create({
       message,
-      duration: 1800,
+      duration: 3000,
       color,
       position: 'bottom'
     });

@@ -68,7 +68,7 @@ export class HomePage {
       await this.foodService.deleteFood(foodId);
       const toast = await this.toastController.create({
         message: this.translate.instant('home.foodDeleted'),
-        duration: 1800,
+        duration: 3000,
         color: 'danger',
         position: 'bottom'
       });
