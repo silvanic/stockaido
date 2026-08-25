@@ -31,8 +31,7 @@
     "themeToggleAria": "Changer de thème (actuellement : {{mode}})",
     "theme": {
       "light": "Clair",
-      "dark": "Sombre",
-      "system": "Système"
+      "dark": "Sombre"
     }
   },
   "locations": {
@@ -163,12 +162,32 @@
     "send": "Envoyer",
     "messageRequired": "Le message est requis",
     "sent": "Message envoyé, merci !",
-    "sendError": "Erreur lors de l'envoi du message"
+    "sendError": "Erreur lors de l'envoi du message",
+    "sendErrorOffline": "Pas de connexion Internet. L'envoi du message nécessite une connexion.",
+    "sendErrorNetwork": "Connexion instable. Vérifiez votre réseau puis réessayez.",
+    "sendErrorUnavailable": "Service temporairement indisponible. Réessayez dans quelques instants."
   },
   "changelogModal": {
     "title": "Nouveautés",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.4",
+        "date": "25/08/2026",
+        "items": [
+          "Icône d'édition à côté du nom de l'aliment pour mieux signaler qu'on peut modifier sa fiche",
+          "Effet de survol sur la ligne d'un aliment pour un meilleur retour visuel",
+          "Sections par lieu de rangement repliables pour gagner de la place"
+        ]
+      },
+      {
+        "version": "1.3",
+        "date": "24/08/2026",
+        "items": [
+          "Messages d'erreur réseau plus clairs dans \"Nous contacter\"",
+          "Message dédié si vous êtes hors connexion"
+        ]
+      },
       {
         "version": "1.2",
         "date": "24/08/2026",

@@ -43,73 +43,16 @@
 
   <!-- Food groups by location, triés alphabétiquement -->
   <div *ngIf="hasVisibleFoods(); else emptyState">
-    <div class="location-section" *ngFor="let group of getLocationGroups()">
-      <ion-item-divider sticky class="section-divider">
-        <ion-label>{{ group.label | translate }}</ion-label>
-      </ion-item-divider>
-      <ion-item-sliding
-        *ngFor="let food of group.foods"
-        class="food-item"
-      >
-        <ion-item lines="none">
-          <span class="food-avatar" slot="start">
-            <img *ngIf="food.imageUrl" [src]="food.imageUrl" alt="" />
-            <ion-icon *ngIf="!food.imageUrl" name="nutrition-outline"></ion-icon>
-          </span>
-          <div
-            class="food-content"
-            tabindex="0"
-            role="button"
-            [attr.aria-label]="editFoodAriaLabel(food)"
-            [attr.aria-describedby]="'food-qty-' + food.id"
-            (click)="openEditForm(food)"
-            (keydown.enter)="openEditForm(food)"
-            (keydown.space)="openEditForm(food, $event)"
-          >
-            <ion-label>
-              <h2>
-                {{ food.name }}
-                <ion-icon 
-                  [name]="food.isFavorite ? 'star' : 'star-outline'" 
-                  class="favorite-icon"
-                  [class.is-favorite]="food.isFavorite"
-                  (click)="toggleFavorite(food.id, $event)"
-                ></ion-icon>
-                <ion-badge *ngIf="isLowStock(food)" color="danger" class="low-stock-badge">{{ 'home.lowStock' | translate }}</ion-badge>
-              </h2>
-              <p [id]="'food-qty-' + food.id">{{ food.quantity }} {{ getUnitLabel(food.unit) | translate }}</p>
-            </ion-label>
-          </div>
-          
-          <div class="quantity-controls" slot="end">
-            <ion-button 
-              class="quantity-button"
-              [attr.aria-label]="decrementAriaLabel(food)"
-              (click)="decrementQuantity(food.id)"
-            >
-              −
-            </ion-button>
-            <span class="quantity-display">{{ food.quantity }}</span>
-            <ion-button 
-              class="quantity-button"
-              [attr.aria-label]="incrementAriaLabel(food)"
-              (click)="incrementQuantity(food.id)"
-            >
-              +
-            </ion-button>
-          </div>
-        </ion-item>
-        <ion-item-options side="end">
-          <ion-item-option 
-            color="danger"
-            (click)="deleteFood(food.id)"
-          >
-            <ion-icon name="trash" slot="start"></ion-icon>
-            {{ 'common.delete' | translate }}
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </div>
+    <app-location-section
+      *ngFor="let group of getLocationGroups(); trackBy: trackByLocationId"
+      [group]="group"
+      [searchActive]="searchQuery.trim().length > 0"
+      (editFood)="openEditForm($event)"
+      (toggleFavoriteFood)="toggleFavorite($event)"
+      (incrementFood)="incrementQuantity($event)"
+      (decrementFood)="decrementQuantity($event)"
+      (deleteFood)="deleteFood($event)"
+    ></app-location-section>
   </div>
 
   <!-- Empty state -->

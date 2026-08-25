@@ -31,8 +31,7 @@
     "themeToggleAria": "Switch theme (currently: {{mode}})",
     "theme": {
       "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "dark": "Dark"
     }
   },
   "locations": {
@@ -163,12 +162,32 @@
     "send": "Send",
     "messageRequired": "The message is required",
     "sent": "Message sent, thank you!",
-    "sendError": "Error while sending the message"
+    "sendError": "Error while sending the message",
+    "sendErrorOffline": "No Internet connection. Sending this message requires a connection.",
+    "sendErrorNetwork": "Unstable connection. Check your network and try again.",
+    "sendErrorUnavailable": "Service temporarily unavailable. Please try again in a moment."
   },
   "changelogModal": {
     "title": "What's new",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.4",
+        "date": "2026-08-25",
+        "items": [
+          "Edit icon next to the food name to better indicate its entry can be edited",
+          "Hover effect on a food row for clearer visual feedback",
+          "Collapsible storage location sections to save space"
+        ]
+      },
+      {
+        "version": "1.3",
+        "date": "2026-08-24",
+        "items": [
+          "Clearer network error messages in \"Contact us\"",
+          "Dedicated message when you are offline"
+        ]
+      },
       {
         "version": "1.2",
         "date": "2026-08-24",

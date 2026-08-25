@@ -60,7 +60,7 @@ export class DataTransferService {
 
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = `stockionic-export-${date}.json`;
+    anchor.download = `stockaido-export-${date}.json`;
     anchor.click();
 
     URL.revokeObjectURL(url);

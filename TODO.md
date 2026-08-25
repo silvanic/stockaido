@@ -56,6 +56,16 @@ Objectif : tenir la promesse « offline d'abord » côté web.
 
 ---
 
+## v1.3 — UX des erreurs réseau 📋 *à planifier*
+
+Objectif : rendre les retours d'erreur plus clairs sans alourdir l'interface.
+
+- [ ] Formaliser la règle UX globale : erreur bloquante en message inline (rouge) dans le formulaire, succès en snackbar/toast
+- [ ] Appliquer cette règle à tous les écrans qui font des appels HTTP
+- [ ] Vérifier les messages dans le navigateur intégré pour les cas `offline`, `timeout` et `service indisponible`
+
+---
+
 ## v2.0 — Catalogue collaboratif *(conditionnel)*
 
 À n'engager que si l'application a une base d'utilisateurs réelle. Conception détaillée dans

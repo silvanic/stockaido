@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FeedbackService } from '../../services/feedback.service';
+import { toAppHttpError } from '../../shared/http-error';
 
 const MAX_MESSAGE_LENGTH = 2000;
 
@@ -50,10 +51,24 @@ export class ContactModalComponent {
       this.email = '';
       await this.showToast(this.translate.instant('contactModal.sent'));
     } catch (err) {
-      this.contactError = this.translate.instant('contactModal.sendError');
+      const appError = toAppHttpError(err);
+      this.contactError = this.translate.instant(this.getSendErrorKey(appError.kind));
       console.error(err);
     } finally {
       this.sendLoading = false;
+    }
+  }
+
+  private getSendErrorKey(kind: 'offline' | 'timeout' | 'server' | 'client' | 'unknown'): string {
+    switch (kind) {
+      case 'offline':
+        return 'contactModal.sendErrorOffline';
+      case 'timeout':
+        return 'contactModal.sendErrorNetwork';
+      case 'server':
+        return 'contactModal.sendErrorUnavailable';
+      default:
+        return 'contactModal.sendError';
     }
   }
 

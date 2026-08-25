@@ -1,10 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 
-export type ThemeMode = 'light' | 'dark' | 'system';
+export type ThemeMode = 'light' | 'dark';
 
 const STORAGE_KEY = 'stockionic-theme';
-const VALID_MODES: ThemeMode[] = ['light', 'dark', 'system'];
-const CYCLE_ORDER: ThemeMode[] = ['light', 'dark', 'system'];
+const VALID_MODES: ThemeMode[] = ['light', 'dark'];
+const CYCLE_ORDER: ThemeMode[] = ['light', 'dark'];
 
 /**
  * Gère la préférence de thème (clair / sombre / système), persistée en local storage.
@@ -14,11 +14,11 @@ const CYCLE_ORDER: ThemeMode[] = ['light', 'dark', 'system'];
   providedIn: 'root'
 })
 export class ThemeService {
-  private modeSignal = signal<ThemeMode>('system');
+  private modeSignal = signal<ThemeMode>('dark');
   mode = this.modeSignal.asReadonly();
 
   init(): void {
-    this.apply(this.getStoredMode() ?? 'system');
+    this.apply(this.getStoredMode() ?? 'dark');
   }
 
   setMode(mode: ThemeMode): void {

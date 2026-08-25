@@ -5,12 +5,11 @@ import { AlertController, IonicModule, ModalController, ToastController } from '
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FoodService } from '../../services/food.service';
 import { LocationService } from '../../services/location.service';
-import { UnitService } from '../../services/unit.service';
-import { Food, StorageLocation, STORAGE_LOCATION_LABELS } from '../../models/food.model';
-import { Unit, UNIT_LABELS } from '../../models/unit.model';
+import { Food, StorageLocation } from '../../models/food.model';
 import { AddFoodModalComponent } from '../../components/add-food-modal/add-food-modal.component';
 import { OptionsModalComponent } from '../../components/options-modal/options-modal.component';
 import { ToBuyModalComponent } from '../../components/to-buy-modal/to-buy-modal.component';
+import { LocationSectionComponent } from '../../components/location-section/location-section.component';
 import { ThemeService, ThemeMode } from '../../services/theme.service';
 
 // En deçà de ce nombre d'aliments, la liste tient sur un écran et la recherche n'apporte rien
@@ -19,7 +18,7 @@ const SEARCH_VISIBILITY_THRESHOLD = 6;
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, TranslateModule],
+  imports: [CommonModule, FormsModule, IonicModule, TranslateModule, LocationSectionComponent],
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
 })
@@ -38,21 +37,16 @@ export class HomePage {
 
   themeMode = this.themeService.mode;
 
-  private static readonly THEME_ICONS: Record<ThemeMode, string> = {
+  private static readonly THEMES: Record<string, string> = {
     light: 'sunny-outline',
-    dark: 'moon-outline',
-    system: 'contrast-outline'
+    dark: 'moon-outline'
   };
 
   StorageLocation = StorageLocation;
-  STORAGE_LOCATION_LABELS = STORAGE_LOCATION_LABELS;
-  Unit = Unit;
-  UNIT_LABELS = UNIT_LABELS;
 
   constructor(
     public foodService: FoodService,
     private locationService: LocationService,
-    private unitService: UnitService,
     private modalController: ModalController,
     private toastController: ToastController,
     private alertController: AlertController,
@@ -61,7 +55,7 @@ export class HomePage {
   ) {}
 
   themeIcon(): string {
-    return HomePage.THEME_ICONS[this.themeMode()];
+    return HomePage.THEMES[this.themeMode()];
   }
 
   themeToggleAriaLabel(): string {
@@ -99,8 +93,7 @@ export class HomePage {
     }
   }
 
-  async toggleFavorite(foodId: string, event: Event): Promise<void> {
-    event.stopPropagation();
+  async toggleFavorite(foodId: string): Promise<void> {
     await this.foodService.toggleFavorite(foodId);
   }
 
@@ -163,36 +156,18 @@ export class HomePage {
       .sort((a, b) => this.locationService.getOrderIndex(a.id ?? '') - this.locationService.getOrderIndex(b.id ?? ''));
   }
 
-  getUnitLabel(unit: string | undefined): string {
-    if (!unit) return 'units.piece';
-    return UNIT_LABELS[unit as Unit] ?? this.unitService.getUnitName(unit) ?? unit;
-  }
-
-  editFoodAriaLabel(food: Food): string {
-    return this.translate.instant('home.editFoodAria', { name: food.name });
-  }
-
   toBuyAriaLabel(): string {
     const count = this.toBuyList().length;
     return this.translate.instant('home.toBuy');    return this.translate.instant('home.toBuyAria', { label: this.translate.instant('home.toBuy'), count });
-  }
-
-  incrementAriaLabel(food: Food): string {
-    const unit = this.translate.instant(this.getUnitLabel(food.unit));
-    return this.translate.instant('home.incrementAria', { name: food.name, step: food.step ?? 1, unit });
-  }
-
-  decrementAriaLabel(food: Food): string {
-    const unit = this.translate.instant(this.getUnitLabel(food.unit));
-    return this.translate.instant('home.decrementAria', { name: food.name, step: food.step ?? 1, unit });
   }
 
   getFoodsByLocation(location: string | undefined): Food[] {
     return this.foodService.getFoodsByLocation(location);
   }
 
-  isLowStock(food: Food): boolean {
-    return food.minimalStock !== undefined && food.quantity < food.minimalStock;
+  // Clé stable pour que *ngFor réutilise les instances de LocationSectionComponent (sinon leur état replié/déplié est perdu à chaque cycle)
+  trackByLocationId(_index: number, group: { id: string | undefined }): string {
+    return group.id ?? 'no-location';
   }
 
   hasVisibleFoods(): boolean {
