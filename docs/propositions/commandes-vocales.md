@@ -106,7 +106,7 @@ Nouvelles clés `voiceCommand.*` dans `fr.json` / `en.json` :
 2. Adaptateur web (Web Speech API, avec tentative `processLocally`) + bouton mic + intégration `FoodService` (version la plus rapide à démontrer).
 3. Synthèse vocale de confirmation.
 4. Gestion des cas d'ambiguïté / échec + i18n complet.
-5. Documentation dans `ROADMAP.md` / `TODO.md` (convention du projet) une fois livré.
+5. Documentation dans `docs/decisions/` et `docs/suivi-versions.md` (convention du projet) une fois livré.
 
 ## V2 — version native (plus tard, une fois le web bien avancé)
 

@@ -1,7 +1,8 @@
 # StockIonic — Suivi des versions
 
 Liste de suivi des tâches, organisée par version. Les décisions d'architecture et leur
-justification vivent dans [ROADMAP.md](ROADMAP.md) ; ce fichier ne suit que **l'avancement**.
+justification vivent dans les [décisions d'architecture](decisions/README.md) ; ce fichier ne
+suit que **l'avancement**.
 
 Convention : `- [ ]` à faire, `- [x]` terminé. Une version est close quand toutes ses cases
 sont cochées et qu'elle est déployée.
@@ -39,7 +40,7 @@ Objectif : tenir la promesse « offline d'abord » côté web.
 - [x] Vérifier les en-têtes de cache Netlify sur `index.html` *(risque : utilisateurs bloqués
       sur une version obsolète)* — `netlify.toml` ajouté
 - [x] Réparer `app.component.spec.ts` — échoue sur `NG0201: No provider found for TranslateStore`
-- [x] Corriger l'affirmation « Application installable en PWA » dans FEATURES.md une fois vrai
+- [x] Corriger l'affirmation « Application installable en PWA » dans les fonctionnalités une fois vrai
 - [x] Tester le parcours export → import de bout en bout *(import validé dans le navigateur ;
       export couvert par `data-transfer.service.spec.ts` — le téléchargement lui-même n'est pas
       automatisable dans le navigateur intégré, à confirmer une fois dans un vrai navigateur)*
@@ -69,7 +70,7 @@ Objectif : rendre les retours d'erreur plus clairs sans alourdir l'interface.
 ## v2.0 — Catalogue collaboratif *(conditionnel)*
 
 À n'engager que si l'application a une base d'utilisateurs réelle. Conception détaillée dans
-[ROADMAP.md](ROADMAP.md#étape-2--catalogue-collaboratif-reporté).
+[décision 003](decisions/003-catalogue-collaboratif.md).
 
 - [ ] Opt-in explicite et réversible dans le panneau Options
 - [ ] Endpoint de contribution (`name`, `unit`, `location`, `lang` uniquement)

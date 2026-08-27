@@ -37,12 +37,13 @@ src/
     └── catalog/             # Catalogue statique d'aliments (autocomplétion)
 ```
 
-Voir [FEATURES.md](FEATURES.md) pour l'inventaire complet et à jour des fonctionnalités, et
-[TODO.md](TODO.md) / [ROADMAP.md](ROADMAP.md) pour l'avancement et les décisions d'architecture.
+Voir les [fonctionnalités](fonctionnalites.md) pour l'inventaire complet et à jour, et le
+[suivi des versions](suivi-versions.md) / les [décisions d'architecture](decisions/README.md)
+pour l'avancement et les choix de conception.
 
 ---
 
-## Fonctionnalités Principales (résumé — détail dans FEATURES.md)
+## Fonctionnalités Principales (résumé — détail dans [fonctionnalites.md](fonctionnalites.md))
 
 1. **Créer un aliment**
    - Bouton « Ajouter un aliment » en pied de page
@@ -162,8 +163,9 @@ enum StorageLocation {
 
 ## Roadmap
 
-Le suivi de version et les idées non planifiées sont dans [TODO.md](TODO.md) ; les décisions
-d'architecture (offline-first, catalogue collaboratif, i18n...) sont dans [ROADMAP.md](ROADMAP.md).
+Le suivi de version et les idées non planifiées sont dans le
+[suivi des versions](suivi-versions.md) ; les décisions d'architecture (offline-first, catalogue
+collaboratif, i18n...) sont dans [decisions/](decisions/README.md).
 
 ---
 
@@ -194,5 +196,5 @@ d'architecture (offline-first, catalogue collaboratif, i18n...) sont dans [ROADM
 
 ## Contact & Support
 
-Pour toute question ou suggestion, consultez [FEATURES.md](FEATURES.md), [ROADMAP.md](ROADMAP.md)
-et [TODO.md](TODO.md).
+Pour toute question ou suggestion, consultez les [fonctionnalités](fonctionnalites.md), les
+[décisions d'architecture](decisions/README.md) et le [suivi des versions](suivi-versions.md).

@@ -1,8 +1,8 @@
 # 🚀 StockIonic - Application de Gestion de Stock Alimentaire
 
 > ⚠️ Ce document décrit l'état initial (V0) du projet et n'est plus tenu à jour au fil des
-> versions. Pour l'état **actuel**, voir [FEATURES.md](FEATURES.md) (fonctionnalités) et
-> [TODO.md](TODO.md) (avancement par version).
+> versions. Il est conservé à titre d'historique. Pour l'état **actuel**, voir les
+> [fonctionnalités](../fonctionnalites.md) et le [suivi des versions](../suivi-versions.md).
 
 ## ✅ Projet Créé avec Succès !
 
@@ -78,9 +78,9 @@ npm run lint         # Vérifier le code
 
 ## 📚 Documentation
 
-- **[GETTING_STARTED.md](./GETTING_STARTED.md)** - Guide complet de démarrage
-- **[FEATURES.md](./FEATURES.md)** - Inventaire à jour des fonctionnalités
-- **[ROADMAP.md](./ROADMAP.md)** / **[TODO.md](./TODO.md)** - Décisions d'architecture et suivi de version
+- **[Guide de démarrage](../demarrage.md)** - Guide complet de démarrage
+- **[Fonctionnalités](../fonctionnalites.md)** - Inventaire à jour des fonctionnalités
+- **[Décisions d'architecture](../decisions/README.md)** / **[Suivi des versions](../suivi-versions.md)**
 
 ---
 
@@ -115,11 +115,12 @@ src/app/
 - [x] Interface mobile-first
 - [x] Zéro dépendances externes pour l'état
 
-### 🔮 Depuis livrées (voir TODO.md pour le détail par version)
+### 🔮 Depuis livrées (voir le [suivi des versions](../suivi-versions.md) pour le détail)
 - [x] Système de favoris (★)
 - [x] Stock minimal par aliment + liste « À acheter » auto-générée
 - [x] Image personnalisée, internationalisation FR/EN, catalogue d'autocomplétion
-- [ ] Support multi-utilisateur (cloud) — conditionnel, voir ROADMAP.md étape 2
+- [ ] Support multi-utilisateur (cloud) — conditionnel, voir la
+      [décision 003](../decisions/003-catalogue-collaboratif.md)
 
 ---
 
@@ -157,7 +158,7 @@ src/app/
 2. **Ajouter quelques aliments** et tester les fonctionnalités
 
 3. **Pour aller plus loin**
-   - Consulter [GETTING_STARTED.md](./GETTING_STARTED.md) pour un guide détaillé
+   - Consulter le [guide de démarrage](../demarrage.md) pour un guide détaillé
    - Implémenter les features V1
    - Builder pour Android/iOS si souhaité
 
@@ -179,8 +180,8 @@ src/app/
 ## 📞 Support
 
 Pour toute question, consultez:
-- [GETTING_STARTED.md](./GETTING_STARTED.md) - Guide complet
-- [FEATURES.md](./FEATURES.md) - Fonctionnalités à jour
+- [Guide de démarrage](../demarrage.md) - Guide complet
+- [Fonctionnalités](../fonctionnalites.md) - Fonctionnalités à jour
 - Console du navigateur (F12) pour les erreurs
 
 ---
