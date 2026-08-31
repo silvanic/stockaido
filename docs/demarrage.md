@@ -23,9 +23,9 @@ L'application s'ouvrira automatiquement dans le navigateur à `http://localhost:
 src/
 ├── app/
 │   ├── models/              # Interfaces TypeScript (food, food-catalog, unit...)
-│   ├── repositories/        # Accès IndexedDB (food, location, unit)
+│   ├── repositories/        # Accès IndexedDB (food, location, unit, shopping-list)
 │   ├── services/            # Logique métier avec Signals (food, location, unit,
-│   │                         # food-catalog, language, data-transfer)
+│   │                         # food-catalog, language, data-transfer, shopping-list, swipe-hint)
 │   ├── shared/               # Utilitaires (ex: normalisation de texte pour la recherche)
 │   ├── pages/               # Pages principales
 │   │   └── home/            # Inventaire principal
@@ -63,15 +63,18 @@ pour l'avancement et les choix de conception.
    - Valeurs par défaut + création de lieux/unités personnalisés (panneau Options)
 
 6. **Liste « À acheter »**
-   - Générée automatiquement à partir du stock minimal de chaque aliment
+   - Section « Stock bas » générée automatiquement + section « Ma liste » pour ajouter librement n'importe quel article
 
-7. **Stockage local**
+7. **Dates de péremption**
+   - Date de péremption et d'ouverture par aliment, icône d'alerte et tri automatique par urgence
+
+8. **Stockage local**
    - Toutes les données (aliments, lieux, unités) sont dans IndexedDB, fonctionne hors ligne
 
-8. **Import / export**
+9. **Import / export**
    - Sauvegarde et restauration de toutes les données via un fichier JSON
 
-9. **Internationalisation**
+10. **Internationalisation**
    - Interface disponible en français et anglais, choix persistant
 
 ---

@@ -67,6 +67,17 @@ Objectif : rendre les retours d'erreur plus clairs sans alourdir l'interface.
 
 ---
 
+## v1.5 — Dates de péremption et liste manuelle ✅
+
+- [x] Dates de péremption et d'ouverture par aliment, avec délai « à consommer sous X jours après ouverture »
+- [x] Icône d'alerte (périmé / bientôt périmé à J-3) à côté du nom de l'aliment
+- [x] Tri automatique par urgence de péremption dans chaque lieu de rangement
+- [x] Recherche texte étendue aux mots-clés de statut de péremption (FR/EN)
+- [x] Liste manuelle (« Ma liste ») dans la popin « À acheter », indépendante du stock
+- [x] Indice de découverte du swipe-to-delete (animé une seule fois, garde-fous contre le blocage)
+
+---
+
 ## v2.0 — Catalogue collaboratif *(conditionnel)*
 
 À n'engager que si l'application a une base d'utilisateurs réelle. Conception détaillée dans
@@ -84,9 +95,10 @@ Objectif : rendre les retours d'erreur plus clairs sans alourdir l'interface.
 
 ## Dette technique
 
-- [ ] Couverture de tests quasi nulle : aucun test sur `FoodCatalogService`, le calcul de la
-      liste à acheter *(l'import/export est désormais couvert)*
-- [ ] Budgets SCSS dépassés sur `home.page.scss` et `add-food-modal.component.scss`
+- [ ] Couverture de tests quasi nulle : aucun test sur `FoodCatalogService`, `FoodService`
+      (tri par urgence, calcul de la liste à acheter, recherche), `ShoppingListService`
+      *(l'import/export est désormais couvert)*
+- [ ] Budgets SCSS dépassés sur `add-food-modal.component.scss` et `location-section.component.scss`
       *(alertes de build récurrentes — relever le seuil ou découper les styles)*
 - [ ] Aucune validation sur un appareil physique, tout est vérifié en émulation navigateur
 - [ ] Pas de télémétrie ni de remontée d'erreur : les bugs utilisateurs sont invisibles
@@ -95,7 +107,6 @@ Objectif : rendre les retours d'erreur plus clairs sans alourdir l'interface.
 
 ## Idées non planifiées
 
-- [ ] Dates de péremption avec alertes
 - [ ] Codes-barres (le module `@capacitor/camera` est déjà installé)
 - [ ] Langues supplémentaires (ES, DE, IT) — dupliquer `fr.json` et `names.fr.json`
 - [ ] Historique des consommations

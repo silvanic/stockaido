@@ -16,6 +16,7 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 - **Unités de mesure** configurables par aliment (pièce, g, kg, ml, l, dl, cuillère à soupe/café, tasse, bouteille, paquet, boîte, pot, carton), et **unités personnalisées** créées librement par l'utilisateur.
 - **Favoris** : marquage ★ d'un aliment, togglable directement depuis la liste.
 - **Stock minimal** : seuil optionnel par aliment ; un badge « Stock bas » s'affiche quand la quantité passe sous ce seuil.
+- **Dates de péremption et d'ouverture** : date de péremption imprimée sur l'emballage et date d'ouverture, avec un délai optionnel « à consommer sous X jours après ouverture » (l'échéance retenue est la plus proche des deux). Une icône s'affiche à côté du nom de l'aliment quand l'échéance est dépassée (rouge) ou proche, à J-3 (orange).
 - **Notes libres** par aliment (champ texte optionnel).
 - **Image personnalisée** :
   - possibilité d'importer une photo depuis l'appareil (au lieu de l'emoji générique),
@@ -25,7 +26,7 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 
 ## 2. Recherche
 
-- Barre de recherche en temps réel, filtrant les aliments par **nom** ou par **lieu de rangement**.
+- Barre de recherche en temps réel, filtrant les aliments par **nom**, **lieu de rangement**, ou **statut de péremption** (les mots-clés « périmé »/« expired » et « bientôt »/« soon » remontent les aliments concernés, y compris ceux qui ne sont pas encore périmés mais proches de l'échéance).
 - **Thème clair / sombre** : icône dans l'en-tête (à côté de « À acheter ») qui fait défiler Clair → Sombre → Système, avec persistance du choix. En mode « Système », le thème suit `prefers-color-scheme` de l'appareil.
 
 ## 3. Lieux de rangement
@@ -37,11 +38,16 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 
 ## 4. Liste à acheter
 
-- Génération automatique d'une liste « À acheter » : tous les aliments dont la quantité est passée sous leur stock minimal.
-- Accessible depuis un bouton dédié dans l'en-tête (icône panier avec badge indiquant le nombre d'articles).
-- Clic sur un article de la liste : ouvre directement la popin d'édition de l'aliment correspondant.
+- Génération automatique d'une section « Stock bas » : tous les aliments dont la quantité est passée sous leur stock minimal.
+- **Liste manuelle (« Ma liste »)** : ajout libre d'articles indépendants de l'inventaire (pas de quantité/unité/lieu à renseigner), avec case à cocher, suppression par balayage, et bouton pour vider entièrement la liste (avec confirmation). Volontairement absente de l'export/import de sauvegarde (jugée secondaire).
+- Accessible depuis un bouton dédié dans l'en-tête (icône panier avec badge indiquant le nombre d'articles en stock bas).
+- Clic sur un article de la section « Stock bas » : ouvre directement la popin d'édition de l'aliment correspondant.
 
-## 5. Panneau Options
+## 5. Aliments à consommer en priorité
+
+- Dans chaque lieu de rangement, les aliments **périmés** puis **bientôt périmés** (échéance à J-3 ou moins) remontent automatiquement en haut de la liste, avant les autres (triés ensuite par échéance puis par nom).
+
+## 6. Panneau Options
 
 - Accessible via l'icône « Options » (à côté de l'icône « À acheter ») dans l'en-tête.
 - S'ouvre sur un **menu léger** (5 entrées : Lieux de rangement, Unités, Sauvegarde des données, Nous contacter, Nouveautés) ; chaque entrée ouvre sa propre popin dédiée, pour éviter une modal unique surchargée.
@@ -53,12 +59,12 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 - Listes à hauteur limitée (scroll interne indépendant, contenu au format mobile) pour rester utilisables même avec de nombreux éléments créés.
 - Une confirmation est demandée avant toute suppression ou tout import (opération destructive).
 
-## 6. Persistance des données
+## 7. Persistance des données
 
 - Stockage 100 % local via **IndexedDB** (`FoodRepository`, `LocationRepository`, `UnitRepository`) : pas de backend, fonctionne hors-ligne.
 - Les images personnalisées sont stockées sous forme de data URL (base64) directement dans l'enregistrement de l'aliment.
 
-## 7. Internationalisation (i18n)
+## 8. Internationalisation (i18n)
 
 - Application disponible en **français** et **anglais** (extensible à d'autres langues).
 - Basé sur `@ngx-translate/core`, fichiers de traduction JSON dans `src/assets/i18n/` (`fr.json`, `en.json`).
@@ -66,9 +72,10 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 - La langue choisie est **persistée** (local storage) et restaurée au démarrage ; à défaut, la langue du navigateur est utilisée si supportée, sinon le français.
 - Les lieux de rangement et unités personnalisés (créés par l'utilisateur) ne sont pas traduits (nom libre) ; seuls les libellés par défaut et l'ensemble de l'interface le sont.
 
-## 8. Interface / UX
+## 9. Interface / UX
 
 - Design mobile-first avec composants Ionic (`ion-item-sliding`, `ion-accordion`, `ion-modal`, `ion-toast`, etc.).
+- **Découverte du swipe-to-delete** : au tout premier écran avec un élément glissable rencontré (liste d'aliments ou « Ma liste »), une courte animation révèle une fois le bouton Supprimer pour montrer le geste, jamais répétée ensuite.
 - Formulaire d'ajout/édition organisé avec un bloc « Options avancées » repliable (stock minimal, pas d'incrémentation, favori, notes, image) pour ne pas surcharger le formulaire principal.
 - Messages de confirmation (toasts) après ajout, modification ou suppression.
 - État de chargement et gestion des erreurs affichés à l'utilisateur.
@@ -77,7 +84,7 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 - Quand une nouvelle version est déployée, un message propose de recharger l'application ;
   l'utilisateur reste libre de continuer sur la version en cours.
 
-## 9. Stack technique
+## 10. Stack technique
 
 - Angular 20+ / Ionic 8+, composants **standalone**.
 - **Angular Signals** pour la réactivité (aucune dépendance RxJS pour l'état applicatif).

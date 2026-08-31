@@ -27,6 +27,7 @@ aucune dépendance réseau au démarrage, aucun compte utilisateur.
 | 002 | [Catalogue d'aliments statique embarqué](002-catalogue-embarque.md) | ✅ Implémentée | 20/08/2026 |
 | 003 | [Catalogue collaboratif](003-catalogue-collaboratif.md) | ⏸️ Reportée — nécessite un backend | 20/08/2026 |
 | 004 | [Partage et consultation du frigo d'un tiers](004-partage-de-frigo.md) | 📐 Conçue, non implémentée | 27/08/2026 |
+| 005 | [Frigo connecté, géré à plusieurs](005-frigo-connecte.md) | ⏸️ Reportée — nécessite un backend | 27/08/2026 |
 
 Légende : ✅ en production · 📐 conçue, prête à implémenter · ⏸️ reportée sous condition
 

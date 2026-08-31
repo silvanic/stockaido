@@ -14,14 +14,29 @@
   },
   "home": {
     "title": "Stockaido",
-    "searchPlaceholder": "Rechercher un aliment...",
+    "searchPlaceholder": "Rechercher un aliment, « périmé » ou « bientôt »...",
     "toBuy": "À acheter",
     "toBuyEmpty": "Rien à acheter pour le moment",
+    "toBuyAutoSection": "Stock bas",
+    "shoppingListSection": "Ma liste",
+    "shoppingListEmpty": "Aucun article ajouté",
+    "shoppingListNewItem": "Ajouter un article",
+    "shoppingListAdd": "Ajouter",
+    "shoppingListClearAll": "Vider la liste",
+    "shoppingListClearConfirm": "Tous les articles de « Ma liste » seront supprimés.",
     "addFood": "Ajouter un aliment",
     "emptyTitle": "Aucun aliment",
     "emptyText": "Commencez par ajouter un aliment à votre stock",
     "error": "Erreur",
     "lowStock": "Stock bas",
+    "expiry": {
+      "expired": "Périmé",
+      "soon": "Périme bientôt"
+    },
+    "expirySearchKeywords": {
+      "expired": ["perime"],
+      "soon": ["perime", "bientot"]
+    },
     "foodDeleted": "Aliment supprimé",
     "confirmDeleteFood": "Supprimer cet aliment ?",
     "loadError": "Erreur au chargement des aliments",
@@ -67,6 +82,9 @@
     "location": "Lieu de rangement",
     "newLocation": "Nouveau lieu de rangement",
     "lowStockHint": "Stock actuellement en dessous du seuil minimal",
+    "expiresAt": "Date de péremption",
+    "openedAt": "Date d'ouverture",
+    "daysAfterOpening": "À consommer sous (jours après ouverture)",
     "advancedOptions": "Options avancées",
     "customImage": "Image personnalisée",
     "changeImage": "Changer",
@@ -74,6 +92,7 @@
     "removeImage": "Retirer",
     "minimalStock": "Stock minimal (optionnel)",
     "step": "Pas d'incrémentation",
+    "stepHint": "Quantité ajoutée ou retirée à chaque appui sur les boutons + et − de la liste (ici {{step}} à la fois).",
     "favorite": "Favori",
     "notes": "Notes (optionnel)",
     "submitAdd": "Ajouter",
@@ -171,6 +190,17 @@
     "title": "Nouveautés",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.5",
+        "date": "31/08/2026",
+        "items": [
+          "Date de péremption et date d'ouverture pour chaque aliment",
+          "Icône d'alerte quand un aliment est périmé ou périme bientôt",
+          "Les aliments à consommer rapidement remontent en haut de chaque lieu de rangement",
+          "La recherche comprend aussi « périmé » pour retrouver rapidement ces aliments",
+          "Liste personnalisée dans « À acheter » pour noter ce que vous voulez, même hors stock"
+        ]
+      },
       {
         "version": "1.4",
         "date": "25/08/2026",

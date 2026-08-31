@@ -1,0 +1,50 @@
+ion-list-header {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--ion-color-medium);
+
+  ion-button {
+    margin: 0 8px 0 0;
+    --padding-start: 6px;
+    --padding-end: 6px;
+  }
+}
+
+.is-checked {
+  text-decoration: line-through;
+  color: var(--ion-color-medium);
+}
+
+.add-item-footer {
+  background: var(--ion-background-color, #fff);
+
+  &::before {
+    display: none; // masque le liseré iOS au-dessus du footer
+  }
+}
+
+.add-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
+
+  .field-item {
+    flex: 1;
+    margin-bottom: 0;
+    --background: rgba(128, 128, 128, 0.1);
+    --border-radius: 8px;
+    --border-color: rgba(128, 128, 128, 0.35);
+    --border-width: 1px;
+    --border-style: solid;
+  }
+
+  ion-button {
+    flex-shrink: 0;
+    --border-radius: 50%;
+    width: 44px;
+    height: 44px;
+  }
+}

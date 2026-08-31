@@ -139,7 +139,7 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-note *ngIf="isLocationDuplicate" color="danger" class="duplicate-location-hint">
+        <ion-note *ngIf="isLocationDuplicate" color="warning" class="duplicate-location-hint">
           <ion-icon name="alert-circle"></ion-icon>
           {{ 'foodModal.duplicateLocation' | translate }}
         </ion-note>
@@ -153,6 +153,24 @@
           <ion-icon name="add-circle-outline" slot="start"></ion-icon>
           {{ 'foodModal.newLocation' | translate }}
         </ion-button>
+
+        <!-- Dates de péremption / ouverture -->
+        <div class="dates-row">
+          <ion-item class="field-item">
+            <ion-label position="stacked">{{ 'foodModal.expiresAt' | translate }}</ion-label>
+            <ion-input [(ngModel)]="expiresAt" name="expiresAt" type="date"></ion-input>
+          </ion-item>
+
+          <ion-item class="field-item">
+            <ion-label position="stacked">{{ 'foodModal.openedAt' | translate }}</ion-label>
+            <ion-input [(ngModel)]="openedAt" name="openedAt" type="date"></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-item *ngIf="openedAt" class="field-item">
+          <ion-label position="floating">{{ 'foodModal.daysAfterOpening' | translate }}</ion-label>
+          <ion-input [(ngModel)]="daysAfterOpening" name="daysAfterOpening" type="number" min="0"></ion-input>
+        </ion-item>
 
         <!-- Options avancées (regroupées pour alléger le formulaire) -->
         <ion-accordion-group class="advanced-options">
@@ -204,6 +222,7 @@
                   min="1"
                 ></ion-input>
               </ion-item>
+              <ion-note class="field-hint">{{ 'foodModal.stepHint' | translate:{ step: step || 1 } }}</ion-note>
 
               <!-- Favori -->
               <ion-item class="field-item">
@@ -228,7 +247,7 @@
         <ion-button 
           expand="block" 
           type="submit"
-          [disabled]="loading || !name.trim() || isLocationDuplicate"
+          [disabled]="loading || !name.trim()"
           class="submit-button"
         >
           <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>

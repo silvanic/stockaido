@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, QueryList, ViewChildren } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonItemSliding } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Food } from '../../models/food.model';
+import { ExpiryStatus, Food, getExpiryStatus } from '../../models/food.model';
 import { Unit, UNIT_LABELS } from '../../models/unit.model';
 import { UnitService } from '../../services/unit.service';
+import { SwipeHintService } from '../../services/swipe-hint.service';
 
 export interface LocationGroup {
   id: string | undefined;
@@ -22,7 +23,7 @@ export interface LocationGroup {
   templateUrl: './location-section.component.html',
   styleUrls: ['./location-section.component.scss']
 })
-export class LocationSectionComponent {
+export class LocationSectionComponent implements AfterViewInit, OnDestroy {
   @Input({ required: true }) group!: LocationGroup;
   // Pendant une recherche active, la section reste dépliée pour ne pas cacher les résultats
   @Input() searchActive = false;
@@ -33,12 +34,78 @@ export class LocationSectionComponent {
   @Output() decrementFood = new EventEmitter<string>();
   @Output() deleteFood = new EventEmitter<string>();
 
+  @ViewChildren(IonItemSliding) private slidingItems!: QueryList<IonItemSliding>;
+  @ViewChildren(IonItemSliding, { read: ElementRef }) private slidingElements!: QueryList<ElementRef<HTMLElement>>;
+
+  private swipeHintTimeouts: ReturnType<typeof setTimeout>[] = [];
+  private openSlidingItem: IonItemSliding | null = null;
+
   private collapsed = false;
 
   constructor(
     private translate: TranslateService,
-    private unitService: UnitService
+    private unitService: UnitService,
+    private swipeHintService: SwipeHintService
   ) {}
+
+  ngAfterViewInit(): void {
+    if (this.group.foods.length === 0 || !this.swipeHintService.tryClaim()) return;
+    // Délai pour laisser les web components Ionic finir leur rendu avant l'animation
+    this.swipeHintTimeouts.push(setTimeout(() => this.playSwipeHint(), 400));
+  }
+
+  ngOnDestroy(): void {
+    this.swipeHintTimeouts.forEach(clearTimeout);
+    // Filet de sécurité : referme de force si le composant est détruit pendant l'animation
+    this.openSlidingItem?.close().catch(() => undefined);
+  }
+
+  private async playSwipeHint(): Promise<void> {
+    const item = this.slidingItems.first;
+    if (!item) return;
+
+    try {
+      this.openSlidingItem = item;
+      await item.open('end');
+      this.swipeHintTimeouts.push(setTimeout(() => this.closeSwipeHint(item), 900));
+    } catch (err) {
+      console.error('Erreur lors de l\'ouverture de l\'indice de swipe', err);
+      this.openSlidingItem = null;
+    }
+  }
+
+  private async closeSwipeHint(item: IonItemSliding): Promise<void> {
+    try {
+      await item.close();
+    } catch (err) {
+      console.error('Erreur lors de la fermeture de l\'indice de swipe', err);
+    } finally {
+      this.openSlidingItem = null;
+    }
+
+    // Filet de sécurité supplémentaire : Ionic nettoie son état interne via un délai fixe de 600ms
+    // (voir item-sliding.js) ; si ce n'est toujours pas fait un peu après, on force le nettoyage nous-mêmes
+    const element = this.slidingElements.toArray()[this.slidingItems.toArray().indexOf(item)]?.nativeElement;
+    if (element) {
+      this.swipeHintTimeouts.push(setTimeout(() => this.forceCleanupIfStuck(element), 700));
+    }
+  }
+
+  // Ne retire que les classes/styles qu'Ionic manipule lui-même (item-sliding.js), rien d'autre
+  private forceCleanupIfStuck(host: HTMLElement): void {
+    if (!host.classList.contains('item-sliding-active-slide')) return;
+
+    host.classList.remove(
+      'item-sliding-active-slide',
+      'item-sliding-active-options-end',
+      'item-sliding-active-options-start',
+      'item-sliding-active-swipe-end',
+      'item-sliding-active-swipe-start',
+      'item-sliding-closing'
+    );
+    const innerItem = host.querySelector('ion-item') as HTMLElement | null;
+    if (innerItem) innerItem.style.transform = '';
+  }
 
   isCollapsed(): boolean {
     return !this.searchActive && this.collapsed;
@@ -55,6 +122,15 @@ export class LocationSectionComponent {
 
   isLowStock(food: Food): boolean {
     return food.minimalStock !== undefined && food.quantity < food.minimalStock;
+  }
+
+  expiryStatus(food: Food): ExpiryStatus | undefined {
+    return getExpiryStatus(food);
+  }
+
+  expiryAriaLabel(food: Food): string {
+    const status = this.expiryStatus(food);
+    return status ? this.translate.instant(`home.expiry.${status}`) : '';
   }
 
   editFoodAriaLabel(food: Food): string {

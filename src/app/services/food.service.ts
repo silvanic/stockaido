@@ -1,8 +1,31 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Food, CreateFoodDTO, StorageLocation, STORAGE_LOCATION_LABELS } from '../models/food.model';
+import { Food, CreateFoodDTO, StorageLocation, STORAGE_LOCATION_LABELS, getExpiryStatus, getFoodExpiry } from '../models/food.model';
 import { FoodRepository } from '../repositories/food.repository';
 import { LocationService } from './location.service';
+import { normalizeForSearch } from '../shared/text-normalization';
+
+// Priorité d'affichage : les aliments urgents remontent en haut de leur section
+const EXPIRY_STATUS_RANK: Record<'expired' | 'soon' | 'none', number> = {
+  expired: 0,
+  soon: 1,
+  none: 2
+};
+
+// Compare 2 aliments pour faire remonter ceux à consommer rapidement, puis par échéance puis par nom
+function compareByExpiryUrgency(a: Food, b: Food): number {
+  const rankA = EXPIRY_STATUS_RANK[getExpiryStatus(a) ?? 'none'];
+  const rankB = EXPIRY_STATUS_RANK[getExpiryStatus(b) ?? 'none'];
+  if (rankA !== rankB) return rankA - rankB;
+
+  const expiryA = getFoodExpiry(a);
+  const expiryB = getFoodExpiry(b);
+  if (expiryA && expiryB && expiryA !== expiryB) return expiryA < expiryB ? -1 : 1;
+  if (expiryA && !expiryB) return -1;
+  if (!expiryA && expiryB) return 1;
+
+  return a.name.localeCompare(b.name);
+}
 
 /**
  * Service métier pour la gestion des aliments
@@ -24,17 +47,24 @@ export class FoodService {
   error$ = this.error.asReadonly();
   searchQuery$ = this.searchQuery.asReadonly();
 
-  // Aliments filtrés par la recherche (nom de l'aliment ou lieu de rangement)
+  // Aliments filtrés par la recherche (nom de l'aliment, lieu de rangement, ou statut de péremption)
   filteredFoods = computed(() => {
     const allFoods = this.foods();
-    const query = this.searchQuery().toLowerCase();
+    const query = normalizeForSearch(this.searchQuery());
 
     if (!query) return allFoods;
 
-    return allFoods.filter(food =>
-      food.name.toLowerCase().includes(query) ||
-      (food.location !== undefined && this.translate.instant(this.getLocationLabel(food.location)).toLowerCase().includes(query))
-    );
+    return allFoods.filter(food => {
+      if (normalizeForSearch(food.name).includes(query)) return true;
+      if (food.location !== undefined && normalizeForSearch(this.translate.instant(this.getLocationLabel(food.location))).includes(query)) return true;
+
+      const status = getExpiryStatus(food);
+      if (!status) return false;
+      // Mots-clés dédiés (pas le libellé affiché) pour un comportement identique quelle que soit la langue :
+      // "expired"/"périmé" remonte aussi les "bientôt", "soon"/"bientôt" ne remonte que les "bientôt"
+      const keywords: string[] = this.translate.instant(`home.expirySearchKeywords.${status}`);
+      return Array.isArray(keywords) && keywords.some(keyword => keyword.includes(query));
+    });
   });
 
   // Grouper les aliments par localisation
@@ -57,6 +87,8 @@ export class FoodService {
         grouped['no-location'].push(food);
       }
     });
+
+    Object.values(grouped).forEach(group => group.sort(compareByExpiryUrgency));
 
     return grouped;
   });
@@ -188,13 +220,13 @@ export class FoodService {
   }
 
   /**
-   * Récupère les aliments par localisation (lieu par défaut ou personnalisé)
+   * Récupère les aliments par localisation (lieu par défaut ou personnalisé), triés par urgence
    */
   getFoodsByLocation(location: string | undefined): Food[] {
-    if (!location) {
-      return this.filteredFoods().filter(food => !food.location);
-    }
-    return this.filteredFoods().filter(food => food.location === location);
+    const foods = location
+      ? this.filteredFoods().filter(food => food.location === location)
+      : this.filteredFoods().filter(food => !food.location);
+    return [...foods].sort(compareByExpiryUrgency);
   }
 
   /**

@@ -8,6 +8,37 @@ import { UnitService } from './unit.service';
 
 const EXPORT_VERSION = 1;
 
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+function sanitizeDate(value: unknown): string | undefined {
+  return typeof value === 'string' && ISO_DATE.test(value) ? value : undefined;
+}
+
+function sanitizeDaysAfterOpening(value: unknown): number | undefined {
+  const days = Number(value);
+  return Number.isFinite(days) && days >= 0 ? days : undefined;
+}
+
+// Nettoie les dates d'un aliment importé sans ajouter de clé si elle était absente à l'origine
+function sanitizeFoodDates(food: Food): Food {
+  const result: Food = { ...food };
+
+  if ('expiresAt' in food) {
+    const cleaned = sanitizeDate(food.expiresAt);
+    if (cleaned === undefined) delete result.expiresAt; else result.expiresAt = cleaned;
+  }
+  if ('openedAt' in food) {
+    const cleaned = sanitizeDate(food.openedAt);
+    if (cleaned === undefined) delete result.openedAt; else result.openedAt = cleaned;
+  }
+  if ('daysAfterOpening' in food) {
+    const cleaned = sanitizeDaysAfterOpening(food.daysAfterOpening);
+    if (cleaned === undefined) delete result.daysAfterOpening; else result.daysAfterOpening = cleaned;
+  }
+
+  return result;
+}
+
 interface ExportPayload {
   version: number;
   exportedAt: string;
@@ -82,7 +113,7 @@ export class DataTransferService {
     }
 
     const foods = parsed.data.foods.map(food => ({
-      ...food,
+      ...sanitizeFoodDates(food),
       createdAt: new Date(food.createdAt),
       updatedAt: new Date(food.updatedAt)
     }));

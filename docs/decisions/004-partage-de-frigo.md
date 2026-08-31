@@ -110,3 +110,10 @@ Un fichier reçu est du **contenu non fiable**, quelle que soit son origine appa
 Le principe « offline d'abord » est préservé — aucun backend, aucun compte. Mais le profil actif
 devient une dimension transverse du modèle de données : chaque écran ajouté par la suite devra
 savoir dans quel frigo il travaille.
+
+## Suite
+
+[Décision 005 — Frigo connecté, géré à plusieurs](005-frigo-connecte.md) prolonge celle-ci pour
+l'écriture concurrente à plusieurs appareils. Elle s'appuie sur la multi-base et le registre de
+profils décrits ici, et borne la réserve ci-dessus en donnant à chaque type de profil un contrat
+de connectivité explicite.

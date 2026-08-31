@@ -10,6 +10,7 @@
 </ion-header>
 
 <ion-content>
+  <ion-list-header>{{ 'home.toBuyAutoSection' | translate }}</ion-list-header>
   <ion-list>
     <ion-item *ngFor="let food of toBuyList()" button (click)="openEditForm(food)">
       <ion-label>
@@ -17,8 +18,59 @@
         <p>{{ food.quantity }} / {{ food.minimalStock }} {{ getUnitLabel(food.unit) | translate }}</p>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="toBuyList().length === 0">
-      <ion-label>{{ 'home.toBuyEmpty' | translate }}</ion-label>
+    <ion-item *ngIf="toBuyList().length === 0" lines="none">
+      <ion-label color="medium">{{ 'home.toBuyEmpty' | translate }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list-header>
+    <ion-label>{{ 'home.shoppingListSection' | translate }}</ion-label>
+    <ion-button
+      *ngIf="shoppingList().length > 0"
+      fill="clear"
+      size="small"
+      color="danger"
+      [attr.aria-label]="'home.shoppingListClearAll' | translate"
+      (click)="clearShoppingList()"
+    >
+      <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-list-header>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of shoppingList()">
+      <ion-item>
+        <ion-checkbox
+          slot="start"
+          [checked]="item.checked"
+          (ionChange)="toggleItem(item.id)"
+        ></ion-checkbox>
+        <ion-label [class.is-checked]="item.checked">{{ item.name }}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteItem(item.id)">
+          <ion-icon name="trash" slot="start"></ion-icon>
+          {{ 'common.delete' | translate }}
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="shoppingList().length === 0" lines="none">
+      <ion-label color="medium">{{ 'home.shoppingListEmpty' | translate }}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-footer class="add-item-footer">
+  <form (ngSubmit)="addItem()" class="add-form">
+    <ion-item class="field-item">
+      <ion-input
+        [(ngModel)]="newItemName"
+        name="newItemName"
+        type="text"
+        [placeholder]="'home.shoppingListNewItem' | translate"
+      ></ion-input>
+    </ion-item>
+    <ion-button type="submit" [attr.aria-label]="'home.shoppingListAdd' | translate" [disabled]="!newItemName.trim()">
+      <ion-icon name="add" slot="icon-only"></ion-icon>
+    </ion-button>
+  </form>
+</ion-footer>

@@ -93,15 +93,7 @@ form {
   }
 
   .duplicate-location-hint {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
     margin: -6px 0 12px;
-
-    ion-icon {
-      font-size: 16px;
-    }
   }
 
   // Ligne Quantité + Unité
@@ -124,16 +116,34 @@ form {
     }
   }
 
+  .duplicate-location-hint,
   .low-stock-hint {
     display: flex;
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    margin: -6px 0 12px;
 
     ion-icon {
       font-size: 16px;
     }
+  }
+
+  .low-stock-hint {
+    margin: -6px 0 12px;
+  }
+
+  .field-hint {
+    display: block;
+    font-size: 12px;
+    line-height: 1.35;
+    margin: -6px 0 12px;
+    padding: 0 4px;
+  }
+
+  .dates-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 
   .new-location-button {

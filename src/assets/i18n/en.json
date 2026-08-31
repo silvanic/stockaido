@@ -14,14 +14,29 @@
   },
   "home": {
     "title": "Stockaido",
-    "searchPlaceholder": "Search for a food...",
+    "searchPlaceholder": "Search a food, \"expired\" or \"soon\"...",
     "toBuy": "To buy",
     "toBuyEmpty": "Nothing to buy for now",
+    "toBuyAutoSection": "Low stock",
+    "shoppingListSection": "My list",
+    "shoppingListEmpty": "No item added",
+    "shoppingListNewItem": "Add an item",
+    "shoppingListAdd": "Add",
+    "shoppingListClearAll": "Clear list",
+    "shoppingListClearConfirm": "All items in \"My list\" will be removed.",
     "addFood": "Add a food",
     "emptyTitle": "No food",
     "emptyText": "Start by adding a food to your stock",
     "error": "Error",
     "lowStock": "Low stock",
+    "expiry": {
+      "expired": "Expired",
+      "soon": "Expiring soon"
+    },
+    "expirySearchKeywords": {
+      "expired": ["expired"],
+      "soon": ["expired", "soon"]
+    },
     "foodDeleted": "Food deleted",
     "confirmDeleteFood": "Delete this food?",
     "loadError": "Error while loading foods",
@@ -67,6 +82,9 @@
     "location": "Storage location",
     "newLocation": "New storage location",
     "lowStockHint": "Stock currently below the minimum threshold",
+    "expiresAt": "Expiry date",
+    "openedAt": "Opening date",
+    "daysAfterOpening": "Use within (days after opening)",
     "advancedOptions": "Advanced options",
     "customImage": "Custom image",
     "changeImage": "Change",
@@ -74,6 +92,7 @@
     "removeImage": "Remove",
     "minimalStock": "Minimum stock (optional)",
     "step": "Increment step",
+    "stepHint": "Amount added or removed each time you tap the + and − buttons in the list (here {{step}} at a time).",
     "favorite": "Favorite",
     "notes": "Notes (optional)",
     "submitAdd": "Add",
@@ -171,6 +190,17 @@
     "title": "What's new",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.5",
+        "date": "2026-08-31",
+        "items": [
+          "Expiry date and opening date for each food item",
+          "Alert icon when a food is expired or expiring soon",
+          "Foods to use up soon now float to the top of each storage location",
+          "Search now understands \"expired\" to quickly find these foods",
+          "Custom list in \"To buy\" to note anything you want, even outside your stock"
+        ]
+      },
       {
         "version": "1.4",
         "date": "2026-08-25",

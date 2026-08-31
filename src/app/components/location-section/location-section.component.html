@@ -45,6 +45,14 @@
                 (click)="onToggleFavorite(food, $event)"
               ></ion-icon>
               <ion-badge *ngIf="isLowStock(food)" color="danger" class="low-stock-badge">{{ 'home.lowStock' | translate }}</ion-badge>
+              <ion-icon
+                *ngIf="expiryStatus(food) as status"
+                class="expiry-icon"
+                [name]="status === 'expired' ? 'alert-circle' : 'time'"
+                [color]="status === 'expired' ? 'danger' : 'warning'"
+                role="img"
+                [attr.aria-label]="expiryAriaLabel(food)"
+              ></ion-icon>
             </h2>
             <p [id]="'food-qty-' + food.id">{{ food.quantity }} {{ getUnitLabel(food.unit) | translate }}</p>
           </ion-label>

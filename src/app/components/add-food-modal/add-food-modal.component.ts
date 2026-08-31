@@ -35,6 +35,9 @@ export class AddFoodModalComponent implements OnInit {
   notes: string = '';
   isFavorite: boolean = false;
   imageUrl: string | undefined;
+  expiresAt: string | undefined;
+  openedAt: string | undefined;
+  daysAfterOpening: number | undefined;
 
   loading = false;
   error: string | null = null;
@@ -106,6 +109,9 @@ export class AddFoodModalComponent implements OnInit {
       this.notes = this.food.notes ?? '';
       this.isFavorite = this.food.isFavorite ?? false;
       this.imageUrl = this.food.imageUrl;
+      this.expiresAt = this.food.expiresAt;
+      this.openedAt = this.food.openedAt;
+      this.daysAfterOpening = this.food.daysAfterOpening;
     }
   }
 
@@ -254,11 +260,6 @@ export class AddFoodModalComponent implements OnInit {
       return;
     }
 
-    if (this.isLocationDuplicate) {
-      this.error = this.translate.instant('foodModal.duplicateLocation');
-      return;
-    }
-
     try {
       this.loading = true;
       this.error = null;
@@ -266,6 +267,9 @@ export class AddFoodModalComponent implements OnInit {
       const data: CreateFoodDTO = {
         name: this.name.trim(),
         quantity: this.quantity,
+        expiresAt: this.expiresAt || undefined,
+        openedAt: this.openedAt || undefined,
+        daysAfterOpening: this.normalizedDaysAfterOpening,
         unit: this.unit,
         location: this.location,
         minimalStock: this.minimalStock,
@@ -329,6 +333,11 @@ export class AddFoodModalComponent implements OnInit {
     await alert.present();
   }
 
+  private get normalizedDaysAfterOpening(): number | undefined {
+    const days = Number(this.daysAfterOpening);
+    return Number.isFinite(days) && days >= 0 ? days : undefined;
+  }
+
   private async showToast(message: string, color: 'success' | 'danger'): Promise<void> {
     const toast = await this.toastController.create({
       message,
@@ -350,6 +359,9 @@ export class AddFoodModalComponent implements OnInit {
     this.isFavorite = false;
     this.imageUrl = undefined;
     this.imageError = null;
+    this.expiresAt = undefined;
+    this.openedAt = undefined;
+    this.daysAfterOpening = undefined;
     this.error = null;
   }
 }
