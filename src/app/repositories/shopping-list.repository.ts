@@ -113,6 +113,22 @@ export class ShoppingListRepository {
   }
 
   /**
+   * Insère ou met à jour un article (utilisé lors de la migration)
+   */
+  async putItem(item: ShoppingListItem): Promise<ShoppingListItem> {
+    const db = await this.ensureDb();
+
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([this.storeName], 'readwrite');
+      const store = transaction.objectStore(this.storeName);
+      const request = store.put(item);
+
+      request.onsuccess = () => resolve(item);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  /**
    * Vide complètement la liste (utilisé lors d'un import)
    */
   async clearAll(): Promise<void> {

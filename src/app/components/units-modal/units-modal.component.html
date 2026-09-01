@@ -15,39 +15,78 @@
       <ion-card-title>{{ 'unitsModal.count' | translate: { count: allUnits.length } }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-note *ngIf="unitError" color="danger" class="error-note">{{ unitError }}</ion-note>
+      <ion-note *ngIf="unitError && !editingId" color="danger" class="error-note">{{ unitError }}</ion-note>
 
-      <ion-searchbar
-        *ngIf="allUnits.length > 5"
-        [(ngModel)]="unitFilter"
-        [placeholder]="'unitsModal.filterPlaceholder' | translate"
-        class="options-search"
-      ></ion-searchbar>
+      <!-- Liste et recherche (mode affichage) -->
+      <ng-container *ngIf="!editingId">
+        <ion-searchbar
+          *ngIf="allUnits.length > 5"
+          [(ngModel)]="unitFilter"
+          [placeholder]="'unitsModal.filterPlaceholder' | translate"
+          class="options-search"
+        ></ion-searchbar>
 
-      <div class="options-list-scroll">
-        <ion-list class="options-list">
-          <ion-item *ngFor="let unit of filteredUnits" lines="full">
-            <ion-label>{{ unit.name | translate }}</ion-label>
-            <ion-badge *ngIf="!unit.deletable" slot="end" color="medium" class="default-badge">{{ 'common.default' | translate }}</ion-badge>
-            <ion-button *ngIf="unit.deletable" fill="clear" color="danger" slot="end" (click)="deleteUnit(unit.id, unit.name)">
-              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-            </ion-button>
-          </ion-item>
-          <ion-item *ngIf="filteredUnits.length === 0" lines="none">
-            <ion-label color="medium">{{ 'common.noResults' | translate }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </div>
+        <div class="options-list-scroll">
+          <ion-list class="options-list">
+            <ion-item *ngFor="let unit of filteredUnits" lines="full">
+              <ion-label>
+                {{ unit.name | translate }}
+                <span *ngIf="unit.short" class="unit-short">({{ unit.short | translate }})</span>
+              </ion-label>
+              <ion-badge *ngIf="!unit.deletable" slot="end" color="medium" class="default-badge">{{ 'common.default' | translate }}</ion-badge>
+              <div *ngIf="unit.deletable" slot="end" class="unit-actions">
+                <ion-button fill="clear" color="primary" (click)="startEditing(unit)">
+                  <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" color="danger" (click)="deleteUnit(unit.id, unit.name)">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-item>
+            <ion-item *ngIf="filteredUnits.length === 0" lines="none">
+              <ion-label color="medium">{{ 'common.noResults' | translate }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ng-container>
 
-      <form (ngSubmit)="addUnit()" class="add-form">
+      <!-- Formulaire d'ajout (mode affichage) -->
+      <form *ngIf="!editingId" (ngSubmit)="addUnit()" class="add-form">
         <ion-item class="field-item">
           <ion-label position="floating">{{ 'unitsModal.newUnit' | translate }}</ion-label>
           <ion-input [(ngModel)]="newUnitName" name="newUnitName" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="field-item">
+          <ion-label position="floating">{{ 'unitsModal.newUnitShort' | translate }}</ion-label>
+          <ion-input [(ngModel)]="newUnitShort" name="newUnitShort" type="text" placeholder="Ex: c.à.s."></ion-input>
         </ion-item>
         <ion-button expand="block" type="submit" [disabled]="unitLoading || !newUnitName.trim()">
           <ion-spinner name="crescent" *ngIf="unitLoading"></ion-spinner>
           <span *ngIf="!unitLoading">{{ 'unitsModal.addButton' | translate }}</span>
         </ion-button>
+      </form>
+
+      <!-- Formulaire d'édition (mode édition) -->
+      <form *ngIf="editingId" class="edit-form">
+        <ion-card-subtitle>{{ 'unitsModal.editTitle' | translate }}</ion-card-subtitle>
+        <ion-note *ngIf="unitError" color="danger" class="error-note">{{ unitError }}</ion-note>
+        <ion-item class="field-item">
+          <ion-label position="floating">{{ 'unitsModal.newUnit' | translate }}</ion-label>
+          <ion-input [(ngModel)]="editingName" name="editingName" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="field-item">
+          <ion-label position="floating">{{ 'unitsModal.newUnitShort' | translate }}</ion-label>
+          <ion-input [(ngModel)]="editingShort" name="editingShort" type="text" placeholder="Ex: c.à.s."></ion-input>
+        </ion-item>
+        <div class="button-group">
+          <ion-button expand="block" fill="outline" (click)="cancelEditing()" [disabled]="unitLoading">
+            {{ 'common.cancel' | translate }}
+          </ion-button>
+          <ion-button expand="block" (click)="saveEditing()" [disabled]="unitLoading || !editingName.trim()">
+            <ion-spinner name="crescent" *ngIf="unitLoading"></ion-spinner>
+            <span *ngIf="!unitLoading">{{ 'unitsModal.updateButton' | translate }}</span>
+          </ion-button>
+        </div>
       </form>
     </ion-card-content>
   </ion-card>

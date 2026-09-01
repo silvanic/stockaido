@@ -7,11 +7,13 @@ import { FoodService } from '../../services/food.service';
 import { LocationService } from '../../services/location.service';
 import { UnitService } from '../../services/unit.service';
 import { FoodCatalogService } from '../../services/food-catalog.service';
+import { OffFoodService } from '../../services/off-food.service';
 import { CreateFoodDTO, Food, StorageLocation, STORAGE_LOCATION_LABELS } from '../../models/food.model';
 import { NameSuggestion } from '../../models/food-catalog.model';
 import { normalizeForSearch } from '../../shared/text-normalization';
-import { Unit, UNIT_LABELS } from '../../models/unit.model';
+import { Unit, UNIT_LABELS, UNIT_SHORTS } from '../../models/unit.model';
 import { CreateLocationModalComponent } from '../create-location-modal/create-location-modal.component';
+import { BarcodeScanModalComponent } from '../barcode-scan-modal/barcode-scan-modal.component';
 
 @Component({
   selector: 'app-add-food-modal',
@@ -56,12 +58,14 @@ export class AddFoodModalComponent implements OnInit {
   STORAGE_LOCATION_LABELS = STORAGE_LOCATION_LABELS;
   Unit = Unit;
   UNIT_LABELS = UNIT_LABELS;
+  UNIT_SHORTS = UNIT_SHORTS;
 
   constructor(
     private foodService: FoodService,
     private locationService: LocationService,
     private unitService: UnitService,
     private foodCatalogService: FoodCatalogService,
+    private offFoodService: OffFoodService,
     private modalController: ModalController,
     private alertController: AlertController,
     private toastController: ToastController,
@@ -346,6 +350,45 @@ export class AddFoodModalComponent implements OnInit {
       position: 'bottom'
     });
     await toast.present();
+  }
+
+  /**
+   * Ouvre la modale de scan de code-barres
+   */
+  async openBarcodeScanner(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: BarcodeScanModalComponent
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      this.handleScannedProduct(data);
+    }
+  }
+
+  /**
+   * Pré-remplit le formulaire avec les données d'un produit scanné
+   * @param productData Données extraites du produit Open Food Facts
+   */
+  private handleScannedProduct(productData: { name: string; quantity?: number; unit?: string; brands?: string }): void {
+    this.name = productData.name;
+    
+    if (!this.isEditMode) {
+      if (productData.quantity) {
+        this.quantity = productData.quantity;
+      }
+      if (productData.unit) {
+        this.unit = productData.unit;
+      }
+    }
+
+    // Afficher un toast de confirmation
+    this.showToast(
+      this.translate.instant('foodModal.productScanned', { name: productData.name }),
+      'success'
+    ).catch(err => console.error('Error showing toast:', err));
   }
 
   private resetForm(): void {

@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { AlertController, IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { UnitService } from '../../services/unit.service';
-import { UNIT_LABELS } from '../../models/unit.model';
+import { UNIT_LABELS, UNIT_SHORTS } from '../../models/unit.model';
 
 interface OptionItem {
   id: string;
   name: string;
+  short?: string;
   deletable: boolean;
 }
 
@@ -21,19 +22,35 @@ interface OptionItem {
 })
 export class UnitsModalComponent {
   newUnitName = '';
+  newUnitShort = '';
   unitFilter = '';
   unitError: string | null = null;
   unitLoading = false;
 
+  // État pour le mode édition
+  editingId: string | null = null;
+  editingName = '';
+  editingShort = '';
+
   customUnits = this.unitService.units;
 
   private readonly defaultUnits: OptionItem[] = Object.entries(UNIT_LABELS)
-    .map(([id, name]) => ({ id, name, deletable: false }));
+    .map(([id, name]) => ({ 
+      id, 
+      name, 
+      short: UNIT_SHORTS[id as keyof typeof UNIT_SHORTS],
+      deletable: false 
+    }));
 
   get allUnits(): OptionItem[] {
     return [
       ...this.defaultUnits,
-      ...this.customUnits().map(unit => ({ id: unit.id, name: unit.name, deletable: true }))
+      ...this.customUnits().map(unit => ({ 
+        id: unit.id, 
+        name: unit.name, 
+        short: unit.short,
+        deletable: true 
+      }))
     ];
   }
 
@@ -66,8 +83,9 @@ export class UnitsModalComponent {
     try {
       this.unitLoading = true;
       this.unitError = null;
-      await this.unitService.addUnit(trimmedName);
+      await this.unitService.addUnit(trimmedName, this.newUnitShort || undefined);
       this.newUnitName = '';
+      this.newUnitShort = '';
     } catch (err) {
       this.unitError = this.translate.instant('unitsModal.createError');
       console.error(err);
@@ -88,6 +106,54 @@ export class UnitsModalComponent {
 
     await this.unitService.deleteUnit(id);
     await this.showToast(this.translate.instant('unitsModal.deleted'), 'success');
+  }
+
+  startEditing(unit: OptionItem): void {
+    if (!unit.deletable) return; // Impossible d'éditer les unités par défaut
+    this.editingId = unit.id;
+    this.editingName = unit.name;
+    this.editingShort = unit.short || '';
+    this.unitError = null;
+  }
+
+  cancelEditing(): void {
+    this.editingId = null;
+    this.editingName = '';
+    this.editingShort = '';
+    this.unitError = null;
+  }
+
+  async saveEditing(): Promise<void> {
+    if (!this.editingId) return;
+
+    const trimmedName = this.editingName.trim();
+    if (!trimmedName) {
+      this.unitError = this.translate.instant('unitsModal.nameRequired');
+      return;
+    }
+
+    // Vérifier les doublons (en excluant l'unité en cours d'édition)
+    const isDuplicate = this.allUnits.some(unit => 
+      unit.id !== this.editingId && 
+      this.translate.instant(unit.name).toLowerCase() === trimmedName.toLowerCase()
+    );
+    if (isDuplicate) {
+      await this.showToast(this.translate.instant('unitsModal.duplicateName'), 'warning');
+      return;
+    }
+
+    try {
+      this.unitLoading = true;
+      this.unitError = null;
+      await this.unitService.updateUnit(this.editingId, trimmedName, this.editingShort || undefined);
+      await this.showToast(this.translate.instant('unitsModal.updated'), 'success');
+      this.cancelEditing();
+    } catch (err) {
+      this.unitError = this.translate.instant('unitsModal.updateError');
+      console.error(err);
+    } finally {
+      this.unitLoading = false;
+    }
   }
 
   onClose(): void {

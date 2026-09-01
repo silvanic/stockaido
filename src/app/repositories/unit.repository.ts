@@ -51,10 +51,11 @@ export class UnitRepository {
     });
   }
 
-  async addUnit(name: string): Promise<CustomUnit> {
+  async addUnit(name: string, short?: string): Promise<CustomUnit> {
     const unit: CustomUnit = {
       id: this.generateId(),
       name,
+      short: short?.trim() || undefined, // Stocker undefined si vide
       createdAt: new Date()
     };
 
@@ -95,6 +96,37 @@ export class UnitRepository {
 
       request.onsuccess = () => resolve();
       request.onerror = () => reject(request.error);
+    });
+  }
+
+  async updateUnit(id: string, name: string, short?: string): Promise<CustomUnit> {
+    const db = await this.ensureDb();
+    
+    // Récupérer l'unité existante pour conserver createdAt
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([this.storeName], 'readwrite');
+      const store = transaction.objectStore(this.storeName);
+      const getRequest = store.get(id);
+
+      getRequest.onsuccess = () => {
+        const existing = getRequest.result as CustomUnit | undefined;
+        if (!existing) {
+          reject(new Error('Unit not found'));
+          return;
+        }
+
+        const updated: CustomUnit = {
+          ...existing,
+          name,
+          short: short?.trim() || undefined
+        };
+
+        const putRequest = store.put(updated);
+        putRequest.onsuccess = () => resolve(updated);
+        putRequest.onerror = () => reject(putRequest.error);
+      };
+
+      getRequest.onerror = () => reject(getRequest.error);
     });
   }
 

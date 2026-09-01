@@ -57,20 +57,62 @@
     "none": "No location"
   },
   "units": {
-    "piece": "Piece(s)",
-    "g": "Gram(s)",
-    "kg": "Kilogram(s)",
-    "ml": "Milliliter(s)",
-    "l": "Liter(s)",
-    "dl": "Deciliter(s)",
-    "tablespoon": "Tablespoon",
-    "teaspoon": "Teaspoon",
-    "cup": "Cup(s)",
-    "bottle": "Bottle(s)",
-    "package": "Package(s)",
-    "box": "Box(es)",
-    "jar": "Jar(s)",
-    "carton": "Carton(s)"
+    "piece": {
+      "label": "Piece(s)",
+      "short": "pc"
+    },
+    "g": {
+      "label": "Gram(s)",
+      "short": "g"
+    },
+    "kg": {
+      "label": "Kilogram(s)",
+      "short": "kg"
+    },
+    "ml": {
+      "label": "Milliliter(s)",
+      "short": "ml"
+    },
+    "l": {
+      "label": "Liter(s)",
+      "short": "l"
+    },
+    "dl": {
+      "label": "Deciliter(s)",
+      "short": "dl"
+    },
+    "tablespoon": {
+      "label": "Tablespoon",
+      "short": "tbsp"
+    },
+    "teaspoon": {
+      "label": "Teaspoon",
+      "short": "tsp"
+    },
+    "cup": {
+      "label": "Cup(s)",
+      "short": "cup"
+    },
+    "bottle": {
+      "label": "Bottle(s)",
+      "short": "bot."
+    },
+    "package": {
+      "label": "Package(s)",
+      "short": "pkg"
+    },
+    "box": {
+      "label": "Box(es)",
+      "short": "box"
+    },
+    "jar": {
+      "label": "Jar(s)",
+      "short": "jar"
+    },
+    "carton": {
+      "label": "Carton(s)",
+      "short": "ctn"
+    }
   },
   "foodModal": {
     "titleAdd": "Add a food",
@@ -112,7 +154,9 @@
     "foodDeleted": "Food deleted",
     "imageInvalidType": "The selected file is not an image",
     "imageTooLarge": "The image is too large (max 8 MB)",
-    "imageReadError": "Error while reading the image"
+    "imageReadError": "Error while reading the image",
+    "scanBarcode": "📸 Scan barcode",
+    "productScanned": "{{name}} found"
   },
   "createLocationModal": {
     "title": "New storage location",
@@ -148,12 +192,17 @@
     "count": "Units ({{count}})",
     "filterPlaceholder": "Filter units...",
     "newUnit": "New unit",
+    "newUnitShort": "Short form (optional)",
     "addButton": "Add a unit",
+    "editTitle": "Edit unit",
+    "updateButton": "Save",
     "nameRequired": "The unit name is required",
     "duplicateName": "This unit already exists",
     "createError": "Error while creating the unit",
+    "updateError": "Error while updating the unit",
     "confirmDelete": "Delete unit \"{{name}}\"?",
-    "deleted": "Unit deleted"
+    "deleted": "Unit deleted",
+    "updated": "Unit updated"
   },
   "backupModal": {
     "title": "Data",
@@ -190,6 +239,16 @@
     "title": "What's new",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.6",
+        "date": "2026-09-01",
+        "items": [
+          "Integrated barcode scanner: scan via camera or enter manually",
+          "Automatic lookup on Open Food Facts with auto-fill of food details",
+          "Edit custom units (in case of typos)",
+          "Display short forms next to unit names in selectors"
+        ]
+      },
       {
         "version": "1.5",
         "date": "2026-08-31",
@@ -258,5 +317,20 @@
   "update": {
     "available": "A new version is available.",
     "reload": "Reload"
+  },
+  "barcodeScanModal": {
+    "title": "Scan barcode",
+    "camera": "Camera",
+    "manual": "Manual entry",
+    "alignBarcode": "Align the barcode in the frame",
+    "searching": "Searching for product...",
+    "noCameraFound": "No camera found on this device",
+    "cameraAccessDenied": "Camera access denied. Check your permissions.",
+    "productNotFound": "Product not found. Please check the barcode or try manually.",
+    "apiUnavailable": "Open Food Facts API is temporarily unavailable. Please try manual entry.",
+    "barcodeInput": "Barcode",
+    "search": "Search",
+    "enterBarcode": "Please enter a barcode",
+    "barcodeInfo": "You can paste or enter a barcode to search for the product in the Open Food Facts database."
   }
 }

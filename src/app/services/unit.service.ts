@@ -21,9 +21,9 @@ export class UnitService {
     this.customUnits.set(units);
   }
 
-  async addUnit(name: string): Promise<CustomUnit> {
+  async addUnit(name: string, short?: string): Promise<CustomUnit> {
     const trimmed = name.trim();
-    const newUnit = await this.repository.addUnit(trimmed);
+    const newUnit = await this.repository.addUnit(trimmed, short);
     this.customUnits.update(units => [...units, newUnit]
       .sort((a, b) => a.name.localeCompare(b.name)));
     return newUnit;
@@ -32,6 +32,16 @@ export class UnitService {
   async deleteUnit(id: string): Promise<void> {
     await this.repository.deleteUnit(id);
     this.customUnits.update(units => units.filter(u => u.id !== id));
+  }
+
+  async updateUnit(id: string, name: string, short?: string): Promise<CustomUnit> {
+    const trimmed = name.trim();
+    const updated = await this.repository.updateUnit(id, trimmed, short);
+    this.customUnits.update(units => 
+      units.map(u => u.id === id ? updated : u)
+        .sort((a, b) => a.name.localeCompare(b.name))
+    );
+    return updated;
   }
 
   getUnitName(id: string): string | undefined {

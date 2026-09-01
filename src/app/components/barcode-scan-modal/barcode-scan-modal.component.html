@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'barcodeScanModal.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Segment: Camera or Manual -->
+  <ion-segment [(ngModel)]="mode" (ionChange)="toggleMode(mode)" class="mode-selector">
+    <ion-segment-button value="camera">
+      <ion-icon name="camera"></ion-icon>
+      {{ 'barcodeScanModal.camera' | translate }}
+    </ion-segment-button>
+    <ion-segment-button value="manual">
+      <ion-icon name="pencil"></ion-icon>
+      {{ 'barcodeScanModal.manual' | translate }}
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Camera Mode -->
+  <div *ngIf="mode === 'camera'" class="camera-container">
+    <!-- Video Element -->
+    <video id="barcode-video-element" class="camera-feed" [hidden]="!scanning"></video>
+
+    <!-- Loading/Scanning State -->
+    <div *ngIf="scanning && !loading" class="camera-overlay">
+      <div class="scan-frame">
+        <div class="scan-corner scan-corner-tl"></div>
+        <div class="scan-corner scan-corner-tr"></div>
+        <div class="scan-corner scan-corner-bl"></div>
+        <div class="scan-corner scan-corner-br"></div>
+      </div>
+      <p class="scan-hint">{{ 'barcodeScanModal.alignBarcode' | translate }}</p>
+    </div>
+
+    <!-- Loading Spinner during API call -->
+    <div *ngIf="loading" class="loading-overlay">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>{{ 'barcodeScanModal.searching' | translate }}</p>
+    </div>
+
+    <!-- Error Message -->
+    <ion-card *ngIf="error && !scanning" color="danger" class="error-card">
+      <ion-card-content>
+        <ion-icon name="alert-circle"></ion-icon>
+        <p>{{ error }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Manual Mode -->
+  <div *ngIf="mode === 'manual'" class="manual-container">
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">{{ 'barcodeScanModal.barcodeInput' | translate }}</ion-label>
+          <ion-input 
+            [(ngModel)]="manualBarcode"
+            placeholder="3017620425035"
+            type="text"
+            autocomplete="off"
+          ></ion-input>
+        </ion-item>
+
+        <ion-button 
+          expand="block" 
+          class="search-button"
+          (click)="onManualSearch()"
+          [disabled]="loading || !manualBarcode.trim()"
+        >
+          <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+          <span *ngIf="!loading">{{ 'barcodeScanModal.search' | translate }}</span>
+        </ion-button>
+
+        <!-- Error Message -->
+        <ion-card *ngIf="error" color="danger" class="error-card">
+          <ion-card-content>
+            <ion-icon name="alert-circle"></ion-icon>
+            <p>{{ error }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-note class="info-note">
+      <ion-icon name="information-circle"></ion-icon>
+      {{ 'barcodeScanModal.barcodeInfo' | translate }}
+    </ion-note>
+  </div>
+</ion-content>

@@ -19,6 +19,19 @@
 
     <ion-card-content>
       <form (ngSubmit)="onSubmit()">
+        <!-- Barcode Scanner Button (add mode only) -->
+        <ion-button 
+          *ngIf="!isEditMode"
+          fill="outline" 
+          expand="block"
+          type="button"
+          class="scanner-button"
+          (click)="openBarcodeScanner()"
+        >
+          <ion-icon name="barcode-outline" slot="start"></ion-icon>
+          {{ 'foodModal.scanBarcode' | translate }}
+        </ion-button>
+
         <!-- Name field (required) -->
         <div class="name-autocomplete">
           <ion-item class="field-item">
@@ -64,49 +77,49 @@
               name="unit"
             >
               <ion-select-option [value]="Unit.PIECE">
-                {{ UNIT_LABELS[Unit.PIECE] | translate }}
+                {{ UNIT_LABELS[Unit.PIECE] | translate }} ({{ UNIT_SHORTS[Unit.PIECE] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.GRAM">
-                {{ UNIT_LABELS[Unit.GRAM] | translate }}
+                {{ UNIT_LABELS[Unit.GRAM] | translate }} ({{ UNIT_SHORTS[Unit.GRAM] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.KILOGRAM">
-                {{ UNIT_LABELS[Unit.KILOGRAM] | translate }}
+                {{ UNIT_LABELS[Unit.KILOGRAM] | translate }} ({{ UNIT_SHORTS[Unit.KILOGRAM] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.MILLILITER">
-                {{ UNIT_LABELS[Unit.MILLILITER] | translate }}
+                {{ UNIT_LABELS[Unit.MILLILITER] | translate }} ({{ UNIT_SHORTS[Unit.MILLILITER] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.LITER">
-                {{ UNIT_LABELS[Unit.LITER] | translate }}
+                {{ UNIT_LABELS[Unit.LITER] | translate }} ({{ UNIT_SHORTS[Unit.LITER] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.DECILITER">
-                {{ UNIT_LABELS[Unit.DECILITER] | translate }}
+                {{ UNIT_LABELS[Unit.DECILITER] | translate }} ({{ UNIT_SHORTS[Unit.DECILITER] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.TABLESPOON">
-                {{ UNIT_LABELS[Unit.TABLESPOON] | translate }}
+                {{ UNIT_LABELS[Unit.TABLESPOON] | translate }} ({{ UNIT_SHORTS[Unit.TABLESPOON] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.TEASPOON">
-                {{ UNIT_LABELS[Unit.TEASPOON] | translate }}
+                {{ UNIT_LABELS[Unit.TEASPOON] | translate }} ({{ UNIT_SHORTS[Unit.TEASPOON] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.CUP">
-                {{ UNIT_LABELS[Unit.CUP] | translate }}
+                {{ UNIT_LABELS[Unit.CUP] | translate }} ({{ UNIT_SHORTS[Unit.CUP] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.BOTTLE">
-                {{ UNIT_LABELS[Unit.BOTTLE] | translate }}
+                {{ UNIT_LABELS[Unit.BOTTLE] | translate }} ({{ UNIT_SHORTS[Unit.BOTTLE] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.PACKAGE">
-                {{ UNIT_LABELS[Unit.PACKAGE] | translate }}
+                {{ UNIT_LABELS[Unit.PACKAGE] | translate }} ({{ UNIT_SHORTS[Unit.PACKAGE] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.BOX">
-                {{ UNIT_LABELS[Unit.BOX] | translate }}
+                {{ UNIT_LABELS[Unit.BOX] | translate }} ({{ UNIT_SHORTS[Unit.BOX] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.JAR">
-                {{ UNIT_LABELS[Unit.JAR] | translate }}
+                {{ UNIT_LABELS[Unit.JAR] | translate }} ({{ UNIT_SHORTS[Unit.JAR] | translate }})
               </ion-select-option>
               <ion-select-option [value]="Unit.CARTON">
-                {{ UNIT_LABELS[Unit.CARTON] | translate }}
+                {{ UNIT_LABELS[Unit.CARTON] | translate }} ({{ UNIT_SHORTS[Unit.CARTON] | translate }})
               </ion-select-option>
               <ion-select-option *ngFor="let u of customUnits" [value]="u.id">
-                {{ u.name }}
+                {{ u.name }} <span *ngIf="u.short">({{ u.short }})</span>
               </ion-select-option>
             </ion-select>
           </ion-item>

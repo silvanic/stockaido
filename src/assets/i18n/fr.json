@@ -57,20 +57,62 @@
     "none": "Sans localisation"
   },
   "units": {
-    "piece": "Pièce(s)",
-    "g": "Gramme(s)",
-    "kg": "Kilogramme(s)",
-    "ml": "Millilitre(s)",
-    "l": "Litre(s)",
-    "dl": "Décilitre(s)",
-    "tablespoon": "Cuillère à soupe",
-    "teaspoon": "Cuillère à café",
-    "cup": "Tasse(s)",
-    "bottle": "Bouteille(s)",
-    "package": "Paquet(s)",
-    "box": "Boîte(s)",
-    "jar": "Pot(s)",
-    "carton": "Carton(s)"
+    "piece": {
+      "label": "Pièce(s)",
+      "short": "pc"
+    },
+    "g": {
+      "label": "Gramme(s)",
+      "short": "g"
+    },
+    "kg": {
+      "label": "Kilogramme(s)",
+      "short": "kg"
+    },
+    "ml": {
+      "label": "Millilitre(s)",
+      "short": "ml"
+    },
+    "l": {
+      "label": "Litre(s)",
+      "short": "l"
+    },
+    "dl": {
+      "label": "Décilitre(s)",
+      "short": "dl"
+    },
+    "tablespoon": {
+      "label": "Cuillère à soupe",
+      "short": "c.à.s."
+    },
+    "teaspoon": {
+      "label": "Cuillère à café",
+      "short": "c.à.c."
+    },
+    "cup": {
+      "label": "Tasse(s)",
+      "short": "tasse"
+    },
+    "bottle": {
+      "label": "Bouteille(s)",
+      "short": "bout."
+    },
+    "package": {
+      "label": "Paquet(s)",
+      "short": "paq."
+    },
+    "box": {
+      "label": "Boîte(s)",
+      "short": "boîte"
+    },
+    "jar": {
+      "label": "Pot(s)",
+      "short": "pot"
+    },
+    "carton": {
+      "label": "Carton(s)",
+      "short": "cton"
+    }
   },
   "foodModal": {
     "titleAdd": "Ajouter un aliment",
@@ -112,7 +154,9 @@
     "foodDeleted": "Aliment supprimé",
     "imageInvalidType": "Le fichier sélectionné n'est pas une image",
     "imageTooLarge": "L'image est trop volumineuse (max 8 Mo)",
-    "imageReadError": "Erreur lors de la lecture de l'image"
+    "imageReadError": "Erreur lors de la lecture de l'image",
+    "scanBarcode": "📸 Scanner un code-barres",
+    "productScanned": "{{name}} trouvé"
   },
   "createLocationModal": {
     "title": "Nouveau lieu de rangement",
@@ -148,12 +192,17 @@
     "count": "Unités ({{count}})",
     "filterPlaceholder": "Filtrer les unités...",
     "newUnit": "Nouvelle unité",
+    "newUnitShort": "Diminutif (optionnel)",
     "addButton": "Ajouter une unité",
+    "editTitle": "Modifier l'unité",
+    "updateButton": "Enregistrer",
     "nameRequired": "Le nom de l'unité est requis",
     "duplicateName": "Cette unité existe déjà",
     "createError": "Erreur lors de la création de l'unité",
+    "updateError": "Erreur lors de la modification de l'unité",
     "confirmDelete": "Supprimer l'unité \"{{name}}\" ?",
-    "deleted": "Unité supprimée"
+    "deleted": "Unité supprimée",
+    "updated": "Unité modifiée"
   },
   "backupModal": {
     "title": "Données",
@@ -190,6 +239,16 @@
     "title": "Nouveautés",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.6",
+        "date": "01/09/2026",
+        "items": [
+          "Scanner de code-barres intégré : scannez via la caméra ou saisissez manuellement",
+          "Recherche automatique sur Open Food Facts et pré-remplissage du formulaire",
+          "Modification des unités personnalisées (en cas de faute de frappe)",
+          "Affichage des diminutifs à côté du nom des unités dans les sélecteurs"
+        ]
+      },
       {
         "version": "1.5",
         "date": "31/08/2026",
@@ -258,5 +317,20 @@
   "update": {
     "available": "Une nouvelle version est disponible.",
     "reload": "Recharger"
+  },
+  "barcodeScanModal": {
+    "title": "Scanner un code-barres",
+    "camera": "Caméra",
+    "manual": "Saisie manuelle",
+    "alignBarcode": "Alignez le code-barres dans le cadre",
+    "searching": "Recherche du produit...",
+    "noCameraFound": "Aucune caméra trouvée sur cet appareil",
+    "cameraAccessDenied": "Accès caméra refusé. Vérifiez vos permissions.",
+    "productNotFound": "Produit non trouvé. Veuillez vérifier le code ou essayer manuellement.",
+    "apiUnavailable": "L'API Open Food Facts est temporairement indisponible. Veuillez essayer la saisie manuelle.",
+    "barcodeInput": "Code-barres",
+    "search": "Rechercher",
+    "enterBarcode": "Veuillez entrer un code-barres",
+    "barcodeInfo": "Vous pouvez coller ou saisir un code-barres pour rechercher le produit dans la base de données Open Food Facts."
   }
 }
