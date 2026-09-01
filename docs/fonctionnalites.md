@@ -1,4 +1,4 @@
-# StockIonic — Inventaire des fonctionnalités
+# Stockaido — Inventaire des fonctionnalités
 
 Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, placard, lieux personnalisés), 100 % locale (IndexedDB), pensée mobile-first.
 

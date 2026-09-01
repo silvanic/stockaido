@@ -3,7 +3,7 @@ import { CustomLocation } from '../models/location.model';
 import { LocationRepository } from '../repositories/location.repository';
 import { StorageLocation } from '../models/food.model';
 
-const ORDER_STORAGE_KEY = 'stockionic-location-order';
+const ORDER_STORAGE_KEY = 'Stockaido-location-order';
 
 /**
  * Service métier pour la gestion des lieux de rangement personnalisés

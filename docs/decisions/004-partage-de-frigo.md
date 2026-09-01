@@ -29,13 +29,13 @@ puis je restaure » — a été écartée. C'est un **état modal destructif** :
   perdues, soit écrites au mauvais endroit.
 - Tant qu'on n'a pas restauré, l'export « mes données » n'exporte plus ses données.
 
-Les repositories ouvrent déjà **trois bases distinctes** (`StockIonic`, `StockIonicLocations`,
-`StockIonicUnits`) via `indexedDB.open(nom, 1)`. Le nom de base est donc le seul point de
+Les repositories ouvrent déjà **trois bases distinctes** (`Stockaido`, `StockaidoLocations`,
+`StockaidoUnits`) via `indexedDB.open(nom, 1)`. Le nom de base est donc le seul point de
 variation à introduire :
 
 ```
-StockIonic            → frigo personnel (existant, inchangé)
-StockIonic__<id>      → frigo importé
+Stockaido            → frigo personnel (existant, inchangé)
+Stockaido__<id>      → frigo importé
 ```
 
 Changer de frigo = fermer les connexions, rouvrir sur l'autre nom, recharger les signals —
@@ -93,7 +93,7 @@ Un fichier reçu est du **contenu non fiable**, quelle que soit son origine appa
 
 ## Pièges connus
 
-- **`locationOrder`** est en `localStorage` sous `stockionic-location-order`. La clé doit être
+- **`locationOrder`** est en `localStorage` sous `Stockaido-location-order`. La clé doit être
   suffixée par le profil, sinon l'ordre du frigo invité écrase celui de l'utilisateur.
 - **Collisions d'identifiants** : les ids sont générés en `${Date.now()}-${random}`, donc
   potentiellement identiques entre deux appareils. L'isolation par base neutralise le problème.

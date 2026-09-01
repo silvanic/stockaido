@@ -8,7 +8,7 @@ import { CustomUnit } from '../models/unit.model';
   providedIn: 'root'
 })
 export class UnitRepository {
-  private dbName = 'StockIonicUnits';
+  private dbName = 'StockaidoUnits';
   private storeName = 'units';
   private db: IDBDatabase | null = null;
   private dbReady: Promise<void>;

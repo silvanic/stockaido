@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 export type ThemeMode = 'light' | 'dark';
 
-const STORAGE_KEY = 'stockionic-theme';
+const STORAGE_KEY = 'Stockaido-theme';
 const VALID_MODES: ThemeMode[] = ['light', 'dark'];
 const CYCLE_ORDER: ThemeMode[] = ['light', 'dark'];
 

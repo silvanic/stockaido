@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 export type AppLanguage = 'fr' | 'en';
 
-const STORAGE_KEY = 'stockionic-lang';
+const STORAGE_KEY = 'Stockaido-lang';
 const SUPPORTED_LANGUAGES: AppLanguage[] = ['fr', 'en'];
 
 /**

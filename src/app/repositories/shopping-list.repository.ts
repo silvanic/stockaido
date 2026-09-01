@@ -8,7 +8,7 @@ import { ShoppingListItem } from '../models/shopping-list.model';
   providedIn: 'root'
 })
 export class ShoppingListRepository {
-  private dbName = 'StockIonicShoppingList';
+  private dbName = 'StockaidoShoppingList';
   private storeName = 'items';
   private db: IDBDatabase | null = null;
   private dbReady: Promise<void>;

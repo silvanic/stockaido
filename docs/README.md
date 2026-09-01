@@ -1,4 +1,4 @@
-# Documentation StockIonic
+# Documentation Stockaido
 
 Point d'entrée de la documentation. Chaque document a **un seul rôle** ; en cas de doute sur
 l'endroit où écrire une information, ce tableau tranche.

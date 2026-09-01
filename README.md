@@ -1,4 +1,4 @@
-# StockIonic
+# Stockaido
 
 Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, placard, lieux de rangement personnalisés), 100 % locale (IndexedDB), pensée mobile-first.
 

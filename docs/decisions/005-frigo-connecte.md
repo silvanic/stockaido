@@ -17,7 +17,7 @@ voisin mais distinct : *consulter* le frigo d'un tiers, hors ligne, par fichier.
 
 005 ne remplace pas 004, elle s'appuie dessus.
 
-004 introduit **une base IndexedDB par frigo** (`StockIonic__<id>`) et un registre de profils.
+004 introduit **une base IndexedDB par frigo** (`Stockaido__<id>`) et un registre de profils.
 C'est exactement le socle dont 005 a besoin : un frigo connecté n'est qu'un profil de plus, avec
 un dépôt de données différent. Implémenter 004 d'abord n'est donc pas un détour — c'est la
 première moitié du travail.
@@ -368,7 +368,7 @@ de l'application en est une autre, et celle-là est rejetée.
   émet `set` ; confondre les deux fausse le résultat dès qu'une modification concurrente survient.
 - **Distinguer 4xx et 5xx** côté client : un `404` (article supprimé par quelqu'un d'autre) ne
   se répare pas en réessayant.
-- **Clé `stockionic-location-order`** à suffixer par profil, déjà signalé en 004.
+- **Clé `Stockaido-location-order`** à suffixer par profil, déjà signalé en 004.
 - **Repère visuel permanent** quand un frigo autre que le sien est actif.
 
 ## Condition de déclenchement

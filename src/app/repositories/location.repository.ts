@@ -8,7 +8,7 @@ import { CustomLocation } from '../models/location.model';
   providedIn: 'root'
 })
 export class LocationRepository {
-  private dbName = 'StockIonicLocations';
+  private dbName = 'StockaidoLocations';
   private storeName = 'locations';
   private db: IDBDatabase | null = null;
   private dbReady: Promise<void>;

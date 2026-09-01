@@ -1,4 +1,4 @@
-# 🚀 StockIonic - Application de Gestion de Stock Alimentaire
+# 🚀 Stockaido - Application de Gestion de Stock Alimentaire
 
 > ⚠️ Ce document décrit l'état initial (V0) du projet et n'est plus tenu à jour au fil des
 > versions. Il est conservé à titre d'historique. Pour l'état **actuel**, voir les
@@ -6,7 +6,7 @@
 
 ## ✅ Projet Créé avec Succès !
 
-L'application **StockIonic V0** est maintenant prête pour le développement et les tests.
+L'application **Stockaido V0** est maintenant prête pour le développement et les tests.
 
 ---
 
@@ -54,11 +54,6 @@ L'application **StockIonic V0** est maintenant prête pour le développement et 
 ---
 
 ## 🚀 Comment Démarrer
-
-### Installation
-```bash
-cd c:\Users\ADE17335\Porte-Document\Projet\StockIonic
-```
 
 ### Lancer en développement
 ```bash

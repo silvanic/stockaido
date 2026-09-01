@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const STORAGE_KEY = 'stockionic-swipe-hint-seen';
+const STORAGE_KEY = 'Stockaido-swipe-hint-seen';
 
 /**
  * Coordonne l'affichage unique (dans la vie de l'app) de l'indice de découverte

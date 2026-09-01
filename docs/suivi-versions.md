@@ -1,4 +1,4 @@
-# StockIonic — Suivi des versions
+# Stockaido — Suivi des versions
 
 Liste de suivi des tâches, organisée par version. Les décisions d'architecture et leur
 justification vivent dans les [décisions d'architecture](decisions/README.md) ; ce fichier ne

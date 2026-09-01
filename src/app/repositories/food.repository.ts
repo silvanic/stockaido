@@ -9,7 +9,7 @@ import { Food, CreateFoodDTO, UpdateQuantityDTO } from '../models/food.model';
   providedIn: 'root'
 })
 export class FoodRepository {
-  private dbName = 'StockIonic';
+  private dbName = 'Stockaido';
   private storeName = 'foods';
   private db: IDBDatabase | null = null;
   private dbReady: Promise<void>;
