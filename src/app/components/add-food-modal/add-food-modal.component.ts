@@ -14,6 +14,7 @@ import { normalizeForSearch } from '../../shared/text-normalization';
 import { Unit, UNIT_LABELS, UNIT_SHORTS } from '../../models/unit.model';
 import { CreateLocationModalComponent } from '../create-location-modal/create-location-modal.component';
 import { BarcodeScanModalComponent } from '../barcode-scan-modal/barcode-scan-modal.component';
+import { PhotoCaptureModalComponent } from '../photo-capture-modal/photo-capture-modal.component';
 
 @Component({
   selector: 'app-add-food-modal',
@@ -389,6 +390,24 @@ export class AddFoodModalComponent implements OnInit {
       this.translate.instant('foodModal.productScanned', { name: productData.name }),
       'success'
     ).catch(err => console.error('Error showing toast:', err));
+  }
+
+  /**
+   * Ouvre la modale de capture de photo
+   */
+  async openPhotoCapture(): Promise<void> {
+    const modal = await this.modalController.create({
+      component: PhotoCaptureModalComponent
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      // data est une dataURL de l'image capturée
+      this.imageUrl = data;
+      this.imageError = null;
+    }
   }
 
   private resetForm(): void {

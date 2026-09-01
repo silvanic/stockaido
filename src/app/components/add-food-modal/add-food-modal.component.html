@@ -202,8 +202,12 @@
                   </div>
                   <div class="image-picker-actions">
                     <ion-button fill="outline" size="small" type="button" (click)="imageInput.click()">
-                      <ion-icon name="camera-outline" slot="start"></ion-icon>
+                      <ion-icon name="folder-outline" slot="start"></ion-icon>
                       {{ (imageUrl ? 'foodModal.changeImage' : 'foodModal.chooseImage') | translate }}
+                    </ion-button>
+                    <ion-button fill="outline" size="small" type="button" (click)="openPhotoCapture()">
+                      <ion-icon name="camera-outline" slot="start"></ion-icon>
+                      {{ 'foodModal.takePhoto' | translate }}
                     </ion-button>
                     <ion-button *ngIf="imageUrl" fill="clear" size="small" color="danger" type="button" (click)="removeImage()">
                       {{ 'foodModal.removeImage' | translate }}

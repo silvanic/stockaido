@@ -1,0 +1,116 @@
+.camera-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.camera-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.camera-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ion-padding, 16px);
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.capture-hint {
+  color: #fff;
+  text-align: center;
+  margin-top: 16px;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.capture-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.capture-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 72px;
+  height: 72px;
+  --border-radius: 50%;
+  --background: var(--ion-color-primary);
+  
+  ion-icon {
+    font-size: 36px;
+  }
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 20;
+
+  p {
+    color: #fff;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+}
+
+.error-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 300px;
+  z-index: 20;
+
+  ion-card-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+
+    ion-icon {
+      font-size: 24px;
+      color: var(--ion-color-danger);
+      flex-shrink: 0;
+    }
+
+    p {
+      margin: 0;
+      color: var(--ion-color-danger);
+      font-size: 14px;
+    }
+  }
+}

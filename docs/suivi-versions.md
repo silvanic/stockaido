@@ -78,6 +78,20 @@ Objectif : rendre les retours d'erreur plus clairs sans alourdir l'interface.
 
 ---
 
+## v1.6 — Scanner de codes-barres et capture photo ✅ *prête à déployer*
+
+- [x] Scanner de codes-barres intégré : mode caméra (zxing) + mode saisie manuelle
+- [x] Intégration API Open Food Facts pour recherche de produits par code-barres
+- [x] Pré-remplissage automatique du formulaire (nom, quantité, unité) depuis OFF
+- [x] Bouton « Prendre une photo » pour capture directe via caméra
+- [x] Modale `PhotoCaptureModalComponent` avec flux vidéo et bouton de capture
+- [x] Compression JPEG et redimensionnement identique à la sélection fichier
+- [x] Traductions complètes FR/EN pour les deux modales (scanner + photo)
+- [x] Fusion silencieuse de la migration StockIonic → Stockaido via `APP_INITIALIZER`
+- [x] Toutes les données migrées avant le chargement des repositories
+
+---
+
 ## v2.0 — Catalogue collaboratif *(conditionnel)*
 
 À n'engager que si l'application a une base d'utilisateurs réelle. Conception détaillée dans

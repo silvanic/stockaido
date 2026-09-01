@@ -20,9 +20,17 @@ Application Ionic/Angular de gestion de stock alimentaire (frigo, congélateur, 
 - **Notes libres** par aliment (champ texte optionnel).
 - **Image personnalisée** :
   - possibilité d'importer une photo depuis l'appareil (au lieu de l'emoji générique),
+  - **capture directe via la caméra** : bouton « Prendre une photo » pour photographier directement l'aliment sans passer par la galerie,
   - redimensionnement automatique côté client (max 512 px) et compression JPEG avant stockage,
   - limite de poids du fichier source (8 Mo),
   - suppression de l'image possible (retour à l'icône par défaut).
+- **Scanner de codes-barres** (`BarcodeScanModalComponent`) :
+  - **Mode caméra** : scan en continu via la webcam/caméra de l'appareil, préférence à la caméra arrière sur mobile,
+  - **Mode saisie manuelle** : fallback si caméra inaccessible ou refusée par l'utilisateur,
+  - utilise la librairie **zxing** pour le décodage (formats multiple : EAN-13, Code 128, etc.),
+  - recherche automatique du produit sur l'API **Open Food Facts** (base de données libre de produits alimentaires),
+  - extraction du nom, quantité et unité depuis les données OFF et pré-remplissage du formulaire,
+  - fonctionne hors-ligne pour le décodage, connexion requise seulement pour l'API OFF.
 
 ## 2. Recherche
 

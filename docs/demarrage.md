@@ -24,12 +24,15 @@ src/
 │   ├── models/              # Interfaces TypeScript (food, food-catalog, unit...)
 │   ├── repositories/        # Accès IndexedDB (food, location, unit, shopping-list)
 │   ├── services/            # Logique métier avec Signals (food, location, unit,
-│   │                         # food-catalog, language, data-transfer, shopping-list, swipe-hint)
+│   │                         # food-catalog, language, data-transfer, shopping-list, 
+│   │                         # swipe-hint, database-migration, off-food)
 │   ├── shared/               # Utilitaires (ex: normalisation de texte pour la recherche)
 │   ├── pages/               # Pages principales
 │   │   └── home/            # Inventaire principal
 │   ├── components/          # Composants réutilisables (add-food-modal, options-modal,
-│   │                         # locations-modal, units-modal, backup-modal, create-location-modal)
+│   │                         # locations-modal, units-modal, backup-modal, 
+│   │                         # create-location-modal, barcode-scan-modal, 
+│   │                         # photo-capture-modal, contact-modal, changelog-modal)
 │   └── app.module.ts        # Configuration Angular (composants standalone importés dedans)
 └── assets/
     ├── i18n/                # Traductions fr.json / en.json (@ngx-translate)
@@ -70,10 +73,18 @@ pour l'avancement et les choix de conception.
 8. **Stockage local**
    - Toutes les données (aliments, lieux, unités) sont dans IndexedDB, fonctionne hors ligne
 
-9. **Import / export**
+9. **Scan de codes-barres**
+   - Scanner intégré avec caméra ou saisie manuelle
+   - Recherche automatique sur Open Food Facts et pré-remplissage du formulaire
+
+10. **Capture photo directe**
+   - Bouton « Prendre une photo » pour photographier les aliments directement dans la caméra
+   - Compression et redimensionnement automatique
+
+11. **Import / export**
    - Sauvegarde et restauration de toutes les données via un fichier JSON
 
-10. **Internationalisation**
+12. **Internationalisation**
    - Interface disponible en français et anglais, choix persistant
 
 ---

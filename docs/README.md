@@ -24,7 +24,8 @@ l'endroit où écrire une information, ce tableau tranche.
 | v1.1 | PWA, service worker, démarrage hors ligne, invite de mise à jour, formulaire de contact, changelog | ✅ Prête à déployer |
 | v1.2 | Retours des premiers utilisateurs | 📋 En attente de remontées |
 | v1.3 | UX des erreurs réseau | 📋 À planifier |
-| v1.5 | Dates de péremption, tri par urgence, recherche par statut, liste manuelle « À acheter », découverte du swipe | ✅ déployé |
+| v1.5 | Dates de péremption, tri par urgence, recherche par statut, liste manuelle « À acheter », découverte du swipe | ✅ Déployée le 31/08/2026 |
+| v1.6 | Scanner de codes-barres (Open Food Facts), capture photo directe, migration de base de données | ✅ Prête à déployer le 01/09/2026 |
 | v2.0 | Catalogue collaboratif | ⏸️ Conditionnel — voir [décision 003](decisions/003-catalogue-collaboratif.md) |
 
 Le détail case par case est dans le [suivi des versions](suivi-versions.md).

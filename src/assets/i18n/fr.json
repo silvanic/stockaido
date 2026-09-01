@@ -155,6 +155,7 @@
     "imageInvalidType": "Le fichier sélectionné n'est pas une image",
     "imageTooLarge": "L'image est trop volumineuse (max 8 Mo)",
     "imageReadError": "Erreur lors de la lecture de l'image",
+    "takePhoto": "Prendre une photo",
     "scanBarcode": "📸 Scanner un code-barres",
     "productScanned": "{{name}} trouvé"
   },
@@ -245,6 +246,7 @@
         "items": [
           "Scanner de code-barres intégré : scannez via la caméra ou saisissez manuellement",
           "Recherche automatique sur Open Food Facts et pré-remplissage du formulaire",
+          "Prendre une photo directement depuis la caméra pour illustrer vos aliments",
           "Modification des unités personnalisées (en cas de faute de frappe)",
           "Affichage des diminutifs à côté du nom des unités dans les sélecteurs"
         ]
@@ -332,5 +334,12 @@
     "search": "Rechercher",
     "enterBarcode": "Veuillez entrer un code-barres",
     "barcodeInfo": "Vous pouvez coller ou saisir un code-barres pour rechercher le produit dans la base de données Open Food Facts."
+  },
+  "photoCaptureModal": {
+    "title": "Prendre une photo",
+    "captureHint": "Cadrez votre sujet et appuyez sur le bouton pour capturer",
+    "capturing": "Capture en cours...",
+    "cameraAccessDenied": "Accès caméra refusé. Vérifiez vos permissions.",
+    "captureError": "Erreur lors de la capture de la photo"
   }
 }

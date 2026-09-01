@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouteReuseStrategy } from '@angular/router';
@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { DatabaseMigrationService } from './services/database-migration.service';
 
 export function httpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -43,7 +44,13 @@ export function httpLoaderFactory(http: HttpClient): TranslateLoader {
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (migrationService: DatabaseMigrationService) => () => migrationService.runMigrations(),
+      deps: [DatabaseMigrationService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
 })

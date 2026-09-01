@@ -155,6 +155,7 @@
     "imageInvalidType": "The selected file is not an image",
     "imageTooLarge": "The image is too large (max 8 MB)",
     "imageReadError": "Error while reading the image",
+    "takePhoto": "Take a photo",
     "scanBarcode": "📸 Scan barcode",
     "productScanned": "{{name}} found"
   },
@@ -245,6 +246,7 @@
         "items": [
           "Integrated barcode scanner: scan via camera or enter manually",
           "Automatic lookup on Open Food Facts with auto-fill of food details",
+          "Take a photo directly from your camera to illustrate your foods",
           "Edit custom units (in case of typos)",
           "Display short forms next to unit names in selectors"
         ]
@@ -332,5 +334,12 @@
     "search": "Search",
     "enterBarcode": "Please enter a barcode",
     "barcodeInfo": "You can paste or enter a barcode to search for the product in the Open Food Facts database."
+  },
+  "photoCaptureModal": {
+    "title": "Take a photo",
+    "captureHint": "Frame your subject and tap the button to capture",
+    "capturing": "Capturing...",
+    "cameraAccessDenied": "Camera access denied. Check your permissions.",
+    "captureError": "Error while capturing the photo"
   }
 }

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'photoCaptureModal.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="camera-container">
+    <!-- Video Element -->
+    <video 
+      id="photo-video-element" 
+      class="camera-feed" 
+      [hidden]="!scanning"
+      autoplay
+      playsinline
+      webkit-playsinline
+    ></video>
+
+    <!-- Overlay with Capture Button -->
+    <div *ngIf="scanning && !loading" class="camera-overlay">
+      <div class="capture-hint">
+        <p>{{ 'photoCaptureModal.captureHint' | translate }}</p>
+      </div>
+      <div class="capture-button-container">
+        <ion-button 
+          fill="solid" 
+          shape="round"
+          size="large"
+          (click)="capturePhoto()"
+          [disabled]="loading"
+          class="capture-button"
+        >
+          <ion-icon name="camera"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Loading Spinner during capture -->
+    <div *ngIf="loading" class="loading-overlay">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>{{ 'photoCaptureModal.capturing' | translate }}</p>
+    </div>
+
+    <!-- Error Message -->
+    <ion-card *ngIf="error && !scanning" color="danger" class="error-card">
+      <ion-card-content>
+        <ion-icon name="alert-circle"></ion-icon>
+        <p>{{ error }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
