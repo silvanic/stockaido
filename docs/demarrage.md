@@ -9,7 +9,6 @@
 ### Lancer l'application en développement
 
 ```bash
-cd c:\Users\ADE17335\Porte-Document\Projet\Stockaido
 ionic serve
 ```
 
