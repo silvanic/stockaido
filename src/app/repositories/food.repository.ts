@@ -34,7 +34,7 @@ export class FoodRepository {
    */
   private async initDatabase(): Promise<void> {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1);
+      const request = indexedDB.open(this.dbName, 2);
 
       request.onerror = () => {
         console.error('Erreur ouverture IndexedDB:', request.error);
@@ -54,6 +54,13 @@ export class FoodRepository {
           store.createIndex('name', 'name', { unique: false });
           store.createIndex('isFavorite', 'isFavorite', { unique: false });
           console.log('Object Store créé');
+        }
+        // Crée aussi le store barcodeCache (partagé avec BarcodeRepository).
+        // Nécessaire car une seule des deux requêtes déclenche onupgradeneeded.
+        if (!this.db.objectStoreNames.contains('barcodeCache')) {
+          const cacheStore = this.db.createObjectStore('barcodeCache', { keyPath: 'id' });
+          cacheStore.createIndex('barcode', 'barcode', { unique: true });
+          cacheStore.createIndex('lastScanned', 'lastScanned', { unique: false });
         }
       };
     });

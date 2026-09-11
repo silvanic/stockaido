@@ -6,7 +6,10 @@
     [attr.aria-expanded]="!isCollapsed()"
     (click)="toggleSection()"
   >
-    <ion-label>{{ group.label | translate }}</ion-label>
+    <ion-label>
+      {{ group.label | translate }}
+    </ion-label>
+    <span class="item-count" slot="end">{{ 'home.itemCount' | translate: { count: group.foods.length } }}</span>
     <ion-icon
       slot="end"
       name="chevron-down-outline"
@@ -14,18 +17,17 @@
       [class.is-collapsed]="isCollapsed()"
     ></ion-icon>
   </ion-item-divider>
-  <div class="section-body" [class.is-collapsed]="isCollapsed()">
+  <div
+    class="section-body food-grid"
+    [class.is-collapsed]="isCollapsed()"
+  >
     <ion-item-sliding
       *ngFor="let food of group.foods"
       class="food-item"
     >
       <ion-item lines="none">
-        <span class="food-avatar" slot="start">
-          <img *ngIf="food.imageUrl" [src]="food.imageUrl" alt="" />
-          <ion-icon *ngIf="!food.imageUrl" name="nutrition-outline"></ion-icon>
-        </span>
         <div
-          class="food-content"
+          class="food-card"
           tabindex="0"
           role="button"
           [attr.aria-label]="editFoodAriaLabel(food)"
@@ -34,16 +36,15 @@
           (keydown.enter)="onEdit(food)"
           (keydown.space)="onEdit(food, $event)"
         >
+          <span class="food-avatar">
+            <img *ngIf="food.imageUrl" [src]="food.imageUrl" alt="" />
+            <ion-icon *ngIf="!food.imageUrl" name="nutrition-outline"></ion-icon>
+          </span>
           <ion-label>
             <h2>
               {{ food.name }}
-              <ion-icon name="create-outline" class="edit-hint-icon"></ion-icon>
-              <ion-icon 
-                [name]="food.isFavorite ? 'star' : 'star-outline'" 
-                class="favorite-icon"
-                [class.is-favorite]="food.isFavorite"
-                (click)="onToggleFavorite(food, $event)"
-              ></ion-icon>
+            </h2>
+            <div class="food-status-row" *ngIf="isLowStock(food) || expiryStatus(food)">
               <ion-badge *ngIf="isLowStock(food)" color="danger" class="low-stock-badge">{{ 'home.lowStock' | translate }}</ion-badge>
               <ion-icon
                 *ngIf="expiryStatus(food) as status"
@@ -53,27 +54,35 @@
                 role="img"
                 [attr.aria-label]="expiryAriaLabel(food)"
               ></ion-icon>
-            </h2>
-            <p [id]="'food-qty-' + food.id">{{ food.quantity }} {{ getUnitLabel(food.unit) | translate }}</p>
+            </div>
+            <div class="food-icons-row">
+              <ion-icon 
+                [name]="food.isFavorite ? 'star' : 'star-outline'" 
+                class="favorite-icon"
+                [class.is-favorite]="food.isFavorite"
+                (click)="onToggleFavorite(food, $event)"
+              ></ion-icon>
+              <ion-icon name="create-outline" class="edit-hint-icon"></ion-icon>
+            </div>
           </ion-label>
-        </div>
 
-        <div class="quantity-controls" slot="end">
-          <ion-button
-            class="quantity-button"
-            [attr.aria-label]="decrementAriaLabel(food)"
-            (click)="decrementFood.emit(food.id)"
-          >
-            −
-          </ion-button>
-          <span class="quantity-display">{{ food.quantity }}</span>
-          <ion-button
-            class="quantity-button"
-            [attr.aria-label]="incrementAriaLabel(food)"
-            (click)="incrementFood.emit(food.id)"
-          >
-            +
-          </ion-button>
+          <div class="quantity-controls">
+            <ion-button
+              class="quantity-button"
+              [attr.aria-label]="decrementAriaLabel(food)"
+              (click)="decrementFood.emit(food.id); $event.stopPropagation()"
+            >
+              −
+            </ion-button>
+            <span class="quantity-display" [id]="'food-qty-' + food.id">{{ food.quantity }} {{ getUnitShort(food.unit) | translate }}</span>
+            <ion-button
+              class="quantity-button"
+              [attr.aria-label]="incrementAriaLabel(food)"
+              (click)="incrementFood.emit(food.id); $event.stopPropagation()"
+            >
+              +
+            </ion-button>
+          </div>
         </div>
       </ion-item>
       <ion-item-options side="end">

@@ -5,6 +5,8 @@ import { CustomUnit } from '../models/unit.model';
 import { FoodService } from './food.service';
 import { LocationService } from './location.service';
 import { UnitService } from './unit.service';
+import { ShoppingListService } from './shopping-list.service';
+import { BarcodeService } from './barcode.service';
 
 const EXPORT_VERSION = 1;
 
@@ -60,7 +62,9 @@ export class DataTransferService {
   constructor(
     private foodService: FoodService,
     private locationService: LocationService,
-    private unitService: UnitService
+    private unitService: UnitService,
+    private shoppingListService: ShoppingListService,
+    private barcodeService: BarcodeService
   ) {}
 
   /**
@@ -132,11 +136,13 @@ export class DataTransferService {
   }
 
   /**
-   * Vide toutes les données locales (aliments, lieux, unités)
+   * Vide toutes les données locales (aliments, lieux, unités, liste d'achats, cache codes-barres)
    */
   async clearAllData(): Promise<void> {
     await this.foodService.clearAll();
     await this.locationService.clearAll();
     await this.unitService.clearAll();
+    await this.shoppingListService.clearAll();
+    await this.barcodeService.clearAll();
   }
 }

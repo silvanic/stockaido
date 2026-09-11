@@ -29,6 +29,7 @@
     "emptyText": "Commencez par ajouter un aliment à votre stock",
     "error": "Erreur",
     "lowStock": "Stock bas",
+    "itemCount": "{{count}} ingrédient(s)",
     "expiry": {
       "expired": "Périmé",
       "soon": "Périme bientôt"
@@ -91,7 +92,7 @@
     },
     "cup": {
       "label": "Tasse(s)",
-      "short": "tasse"
+      "short": "tasse(s)"
     },
     "bottle": {
       "label": "Bouteille(s)",
@@ -103,11 +104,11 @@
     },
     "box": {
       "label": "Boîte(s)",
-      "short": "boîte"
+      "short": "boîte(s)"
     },
     "jar": {
       "label": "Pot(s)",
-      "short": "pot"
+      "short": "pot(s)"
     },
     "carton": {
       "label": "Carton(s)",
@@ -240,6 +241,16 @@
     "title": "Nouveautés",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.7",
+        "date": "11/09/2026",
+        "items": [
+          "Nouvel affichage en grille pour l'inventaire, plus lisible d'un coup d'œil",
+          "Diminutifs des unités (ex. « kg », « c.à.s. ») pour un affichage plus compact",
+          "Nombre d'ingrédients affiché à côté de chaque lieu de rangement",
+          "Tri encore plus utile : périmé, bientôt périmé, stock bas puis favoris remontent en premier"
+        ]
+      },
       {
         "version": "1.6",
         "date": "01/09/2026",

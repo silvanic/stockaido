@@ -6,23 +6,34 @@ import { LocationService } from './location.service';
 import { normalizeForSearch } from '../shared/text-normalization';
 
 // Priorité d'affichage : les aliments urgents remontent en haut de leur section
-const EXPIRY_STATUS_RANK: Record<'expired' | 'soon' | 'none', number> = {
-  expired: 0,
-  soon: 1,
-  none: 2
-};
+// Ordre demandé : périmé > bientôt périmé > stock bas > favori > le reste
+function isLowStock(food: Food): boolean {
+  return food.minimalStock !== undefined && food.quantity < food.minimalStock;
+}
 
-// Compare 2 aliments pour faire remonter ceux à consommer rapidement, puis par échéance puis par nom
+function getUrgencyRank(food: Food): number {
+  const status = getExpiryStatus(food);
+  if (status === 'expired') return 0;
+  if (status === 'soon') return 1;
+  if (isLowStock(food)) return 2;
+  if (food.isFavorite) return 3;
+  return 4;
+}
+
+// Compare 2 aliments pour faire remonter ceux à consommer rapidement, puis stock bas, puis favoris, puis par nom
 function compareByExpiryUrgency(a: Food, b: Food): number {
-  const rankA = EXPIRY_STATUS_RANK[getExpiryStatus(a) ?? 'none'];
-  const rankB = EXPIRY_STATUS_RANK[getExpiryStatus(b) ?? 'none'];
+  const rankA = getUrgencyRank(a);
+  const rankB = getUrgencyRank(b);
   if (rankA !== rankB) return rankA - rankB;
 
-  const expiryA = getFoodExpiry(a);
-  const expiryB = getFoodExpiry(b);
-  if (expiryA && expiryB && expiryA !== expiryB) return expiryA < expiryB ? -1 : 1;
-  if (expiryA && !expiryB) return -1;
-  if (!expiryA && expiryB) return 1;
+  // Entre 2 aliments périmés/bientôt périmés, départager aussi par date d'échéance
+  if (rankA <= 1) {
+    const expiryA = getFoodExpiry(a);
+    const expiryB = getFoodExpiry(b);
+    if (expiryA && expiryB && expiryA !== expiryB) return expiryA < expiryB ? -1 : 1;
+    if (expiryA && !expiryB) return -1;
+    if (!expiryA && expiryB) return 1;
+  }
 
   return a.name.localeCompare(b.name);
 }

@@ -1,3 +1,11 @@
 ion-item ion-icon {
   color: var(--ion-color-primary);
 }
+
+.app-version {
+  text-align: center;
+  color: var(--ion-color-medium);
+  font-size: 12px;
+  margin-top: 24px;
+  padding-bottom: 16px;
+}

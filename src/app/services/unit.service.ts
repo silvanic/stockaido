@@ -48,6 +48,11 @@ export class UnitService {
     return this.customUnits().find(u => u.id === id)?.name;
   }
 
+  getUnitShort(id: string): string | undefined {
+    const unit = this.customUnits().find(u => u.id === id);
+    return unit?.short ?? unit?.name;
+  }
+
   /**
    * Vide toutes les unités personnalisées
    */

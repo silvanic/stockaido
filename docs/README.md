@@ -36,12 +36,13 @@ Le détail case par case est dans le [suivi des versions](suivi-versions.md).
 
 Ces travaux ont une conception aboutie et peuvent être lancés sans phase d'étude préalable.
 
-| Sujet | Document | Ce qui bloque |
-| --- | --- | --- |
-| Partage du frigo d'un tiers | [Décision 004](decisions/004-partage-de-frigo.md) | Rien — priorisation seulement |
-| Commandes vocales | [Proposition](propositions/commandes-vocales.md) | Questions UX ouvertes en fin de document |
-| Frigo connecté à plusieurs | [Décision 005](decisions/005-frigo-connecte.md) | Nécessite un backend, et que le besoin d'écriture concurrente soit confirmé |
-| Catalogue collaboratif | [Décision 003](decisions/003-catalogue-collaboratif.md) | Nécessite un backend et une base d'utilisateurs réelle |
+| Sujet | Document | Ce qui bloque | Fait |
+| --- | --- | --- | --- |
+| Partage du frigo d'un tiers | [Décision 004](decisions/004-partage-de-frigo.md) | Rien — priorisation seulement | ❌ |
+| Commandes vocales | [Proposition](propositions/commandes-vocales.md) | Questions UX ouvertes en fin de document | ❌ |
+| Frigo connecté à plusieurs | [Décision 005](decisions/005-frigo-connecte.md) | Nécessite un backend, et que le besoin d'écriture concurrente soit confirmé | ❌ |
+| Catalogue collaboratif | [Décision 003](decisions/003-catalogue-collaboratif.md) | Nécessite un backend et une base d'utilisateurs réelle | ❌ |
+| Gestion de recettes | [Proposition](propositions/gestion-recettes.md) | Rien — priorisation seulement | ❌ |
 
 <a id="propositions"></a>
 

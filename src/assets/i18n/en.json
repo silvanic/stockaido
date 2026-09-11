@@ -29,6 +29,7 @@
     "emptyText": "Start by adding a food to your stock",
     "error": "Error",
     "lowStock": "Low stock",
+    "itemCount": "{{count}} item(s)",
     "expiry": {
       "expired": "Expired",
       "soon": "Expiring soon"
@@ -91,7 +92,7 @@
     },
     "cup": {
       "label": "Cup(s)",
-      "short": "cup"
+      "short": "cup(s)"
     },
     "bottle": {
       "label": "Bottle(s)",
@@ -103,11 +104,11 @@
     },
     "box": {
       "label": "Box(es)",
-      "short": "box"
+      "short": "box(es)"
     },
     "jar": {
       "label": "Jar(s)",
-      "short": "jar"
+      "short": "jar(s)"
     },
     "carton": {
       "label": "Carton(s)",
@@ -240,6 +241,16 @@
     "title": "What's new",
     "versionLabel": "Version {{version}}",
     "versions": [
+      {
+        "version": "1.7",
+        "date": "2026-09-11",
+        "items": [
+          "New grid layout for your inventory, easier to scan at a glance",
+          "Short unit forms (e.g. \"kg\", \"tbsp\") for a more compact display",
+          "Item count displayed next to each storage location",
+          "Even smarter sorting: expired, expiring soon, low stock then favorites float to the top first"
+        ]
+      },
       {
         "version": "1.6",
         "date": "2026-09-01",

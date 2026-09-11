@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, throwError, from } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Unit } from '../models/unit.model';
+import { BarcodeService } from './barcode.service';
 
 /**
  * Interface pour le produit retourné par l'API Open Food Facts (structure V3)
@@ -87,10 +88,11 @@ export class OffFoodService {
     'Cup': Unit.CUP
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private barcodeService: BarcodeService) {}
 
   /**
    * Recherche un produit par code-barres via l'API Open Food Facts
+   * Vérifie d'abord le cache local, puis l'API si non trouvé
    * @param barcode Code-barres (ex: 3017620425035)
    * @returns Observable<OffProduct> Produit trouvé ou erreur
    */
@@ -101,37 +103,47 @@ export class OffFoodService {
     }
 
     const cleanBarcode = barcode.trim();
-    // V3 endpoint: /api/v3/product/{barcode} (no .json extension needed, defaults to JSON)
-    const url = `${this.API_BASE_URL}/product/${cleanBarcode}`;
 
-    return this.http.get<any>(url, {
-      headers: {
-        'User-Agent': this.USER_AGENT
-      }
-    }).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          return throwError(() => new Error('Product not found'));
+    // 1. Vérifie le cache d'abord
+    return from(this.barcodeService.getFromCache(cleanBarcode)).pipe(
+      switchMap((cachedProduct) => {
+        if (cachedProduct) {
+          console.log(`✅ Barcode ${cleanBarcode} trouvé en cache`);
+          // Reconstruit un OffProduct à partir du cache
+          const offProduct: OffProduct = {
+            code: cleanBarcode,
+            product_name: cachedProduct.name,
+            product_quantity: cachedProduct.quantity,
+            product_quantity_unit: cachedProduct.unit,
+            brands: cachedProduct.brands,
+            ...(cachedProduct.rawOffData || {})
+          };
+          return from(Promise.resolve(offProduct));
         }
-        if (error.status === 400) {
-          return throwError(() => new Error('Invalid barcode format'));
-        }
-        if (error.status === 0) {
-          // Network error / offline
-          return throwError(() => new Error('Network error - Check your connection'));
-        }
-        if (error.status === 500 || error.status === 502 || error.status === 503) {
-          // Server error - API temporarily unavailable
-          return throwError(() => new Error('Open Food Facts API temporarily unavailable. Please try manual entry.'));
-        }
-        return throwError(() => new Error('Failed to fetch product data'));
-      }),
-      map(response => {
-        // V3 wraps product in response.product
-        if (response.product) {
-          return response.product;
-        }
-        throw new Error('Invalid response format from API');
+
+        // 2. Sinon appelle l'API OFF
+        const url = `${this.API_BASE_URL}/product/${cleanBarcode}`;
+        return this.http.get<any>(url, {
+          headers: { 'User-Agent': this.USER_AGENT }
+        }).pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 404) return throwError(() => new Error('Product not found'));
+            if (error.status === 400) return throwError(() => new Error('Invalid barcode format'));
+            if (error.status === 0) return throwError(() => new Error('Network error - Check your connection'));
+            if (error.status === 500 || error.status === 502 || error.status === 503) {
+              return throwError(() => new Error('Open Food Facts API temporarily unavailable. Please try manual entry.'));
+            }
+            return throwError(() => new Error('Failed to fetch product data'));
+          }),
+          map(response => response.product || (() => { throw new Error('Invalid response format from API'); })()),
+          // 3. Ajoute au cache après succès API (fire-and-forget)
+          tap((product: OffProduct) => {
+            const extracted = this.extractProductData(product);
+            this.barcodeService.addToCache(cleanBarcode, extracted, product).catch(err => {
+              console.warn(`Erreur ajout cache: ${err.message}`);
+            });
+          })
+        );
       })
     );
   }

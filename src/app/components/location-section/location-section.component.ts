@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, IonItemSliding } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ExpiryStatus, Food, getExpiryStatus } from '../../models/food.model';
-import { Unit, UNIT_LABELS } from '../../models/unit.model';
+import { Unit, UNIT_LABELS, UNIT_SHORTS } from '../../models/unit.model';
 import { UnitService } from '../../services/unit.service';
 import { SwipeHintService } from '../../services/swipe-hint.service';
 
@@ -118,6 +118,11 @@ export class LocationSectionComponent implements AfterViewInit, OnDestroy {
   getUnitLabel(unit: string | undefined): string {
     if (!unit) return 'units.piece';
     return UNIT_LABELS[unit as Unit] ?? this.unitService.getUnitName(unit) ?? unit;
+  }
+
+  getUnitShort(unit: string | undefined): string {
+    if (!unit) return 'units.piece.short';
+    return UNIT_SHORTS[unit as Unit] ?? this.unitService.getUnitShort(unit) ?? unit;
   }
 
   isLowStock(food: Food): boolean {

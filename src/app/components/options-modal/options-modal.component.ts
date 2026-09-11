@@ -8,6 +8,7 @@ import { BackupModalComponent } from '../backup-modal/backup-modal.component';
 import { ContactModalComponent } from '../contact-modal/contact-modal.component';
 import { ChangelogModalComponent } from '../changelog-modal/changelog-modal.component';
 import { LanguageService, AppLanguage } from '../../services/language.service';
+import packageJson from '../../../../package.json';
 
 @Component({
   selector: 'app-options-modal',
@@ -17,6 +18,9 @@ import { LanguageService, AppLanguage } from '../../services/language.service';
   styleUrls: ['./options-modal.component.scss']
 })
 export class OptionsModalComponent {
+  // Lu directement depuis package.json : jamais désynchronisé, contrairement à une constante recopiée à la main
+  readonly appVersion = packageJson.version;
+
   constructor(
     private modalController: ModalController,
     private alertController: AlertController,
